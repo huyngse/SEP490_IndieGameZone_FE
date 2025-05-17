@@ -1,33 +1,15 @@
-import { Button, Steps } from "antd";
-import MaxWidthWrapper from "./components/max-width-wrapper";
-const description = 'This is a description.';
+import { Route, Routes } from "react-router-dom";
+import LoginPage from "./pages/log-in-page";
+import SignUpPage from "./pages/sign-up-page";
+import HomeContainer from "./containers/home-container";
 
 function App() {
   return (
-    <MaxWidthWrapper>
-      <div className="text-center p-5">
-        <h1 className="text-5xl font-bold">IndieGameZone</h1>
-      </div>
-      <Button type="primary" className="mb-5">Click me!</Button>
-      <Steps
-        current={1}
-        items={[
-          {
-            title: "Finished",
-            description,
-          },
-          {
-            title: "In Progress",
-            description,
-            subTitle: "Left 00:00:08",
-          },
-          {
-            title: "Waiting",
-            description,
-          },
-        ]}
-      />
-    </MaxWidthWrapper>
+    <Routes>
+      <Route path="log-in" element={<LoginPage />} />
+      <Route path="sign-up" element={<SignUpPage />} />
+      <Route path="/*" element={<HomeContainer />} />
+    </Routes>
   );
 }
 

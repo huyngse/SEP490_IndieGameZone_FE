@@ -1,0 +1,28 @@
+import { FaFacebookSquare, FaTwitter } from "react-icons/fa";
+import { Link } from "react-router-dom";
+import MaxWidthWrapper from "./max-width-wrapper";
+
+const Footer = () => {
+  return (
+    <div className="bg-zinc-950 drop-shadow">
+      <MaxWidthWrapper className="p-5 flex flex-col items-center gap-2">
+        <div className="flex gap-3">
+          <Link to={"/"}>
+            <FaFacebookSquare className="text-lg" />
+          </Link>
+          <Link to={"/"}>
+            <FaTwitter className="text-lg" />
+          </Link>
+        </div>
+        <div className="flex gap-1 text-xs">
+          <Link to={"/"}>Hổ trợ</Link>•<Link to={"/"}>Điều khoản sử dụng</Link>•
+          <Link to={"/"}>Chính sách bảo mật </Link>•
+          <Link to={"/"}>Chính sách Cookie</Link>
+        </div>
+        <div className="text-xs text-gray-400">Copyright © 2025 GSU25SE12 Team</div>
+      </MaxWidthWrapper>
+    </div>
+  );
+};
+
+export default Footer;
