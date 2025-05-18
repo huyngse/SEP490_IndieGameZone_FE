@@ -1,6 +1,7 @@
 import MaxWidthWrapper from "@/components/max-width-wrapper";
 import { Link } from "react-router-dom";
 import FeaturedGameSection from "./featured-game-section";
+import SpecialOffersSection from "./special-offers-section";
 
 const HomePage = () => {
   return (
@@ -17,6 +18,7 @@ const HomePage = () => {
         </Link>
       </div>
       <FeaturedGameSection />
+      <SpecialOffersSection />
     </MaxWidthWrapper>
   );
 };

@@ -39,6 +39,10 @@ body {
     transform: scaleX(1);
   }
 
+  .slick-slide {
+    padding: 0 10px; 
+  }
+
   /* Dots */
   .slick-dotted.slick-slider {
     margin-bottom: 30px;
@@ -157,5 +161,16 @@ body {
     margin-bottom: 2px;
     overflow: hidden;
     background-color: oklch(98.5% 0 0);
-
   }
+
+  .highlight-hover {
+    border-width: 2px;
+    border-color: black;
+    transition-duration: 300ms;
+    transition-property: border-color;
+  }
+  
+  .highlight-hover:hover {
+    border-color: #f97316; /* Tailwind's orange-500 */
+  }
+  

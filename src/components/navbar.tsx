@@ -75,7 +75,7 @@ const Navbar = () => {
             <img src={logo} alt="IndeGameZone Logo" className="size-7" />
             <h1 className="font-bold text-xl">IndieGameZone</h1>
           </Link>
-          <Popover content={popOverContent} styles={{ body: { padding: 0 , border: "1px solid black"} }}>
+          <Popover content={popOverContent} styles={{ body: { padding: 0 , border: "1px solid black"} }} trigger={"click"}>
             <Button
               type="text"
               shape="circle"
