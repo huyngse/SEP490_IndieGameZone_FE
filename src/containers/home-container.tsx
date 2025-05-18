@@ -1,6 +1,6 @@
 import HomeLayout from "@/layouts/home-layout";
 import NotFoundPage from "@/pages/errors/not-found-page";
-import HomePage from "@/pages/home-page";
+import HomePage from "@/pages/home-page/home-page";
 import { Route, Routes } from "react-router-dom";
 
 const HomeContainer = () => {
