@@ -5,6 +5,12 @@ import SpecialOffersSection from "./special-offers-section";
 import { IoTimer } from "react-icons/io5";
 import { MdAttachMoney, MdMoneyOff } from "react-icons/md";
 import { FaTags } from "react-icons/fa";
+import PersonalizedSection from "./personalized-section";
+import genre1 from "@/assets/genre-1.jpg";
+import genre2 from "@/assets/genre-2.jpg";
+import genre3 from "@/assets/genre-3.jpg";
+import genre4 from "@/assets/genre-4.jpg";
+import GenreCard from "./genre-card";
 
 const HomePage = () => {
   return (
@@ -53,6 +59,34 @@ const HomePage = () => {
             <FaTags className="absolute size-24 -right-7 text-zinc-500 -z-10" />
             Bằng Tags
           </Link>
+        </div>
+      </section>
+      <PersonalizedSection />
+      <section className="pb-20">
+        <h2 className="text-2xl font-bold text-center my-5">
+          Khám Phá Theo Thể Loại
+        </h2>
+        <div className="grid grid-cols-4 gap-3">
+          <GenreCard
+            title="Thế giới mở"
+            to="/search?genre=1"
+            background={genre1}
+          />
+          <GenreCard
+            title="Phiêu Lưu"
+            to="/search?genre=2"
+            background={genre2}
+          />
+          <GenreCard
+            title="Hành Động"
+            to="/search?genre=3"
+            background={genre3}
+          />
+          <GenreCard
+            title="FPS"
+            to="/search?genre=4"
+            background={genre4}
+          />
         </div>
       </section>
     </MaxWidthWrapper>
