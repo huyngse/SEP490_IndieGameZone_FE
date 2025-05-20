@@ -62,7 +62,7 @@ const settings = {
 const FeaturedGameSection = () => {
   return (
     <section className="pb-9">
-      <h2 className="my-3 text-xl font-bold">Game Nổi Bật</h2>
+      <h2 className="my-3 text-2xl font-bold">Game Nổi Bật</h2>
       <Slider {...settings}>
         {mockData.map((game) => {
           return (
