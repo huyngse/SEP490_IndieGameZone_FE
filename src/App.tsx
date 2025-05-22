@@ -2,12 +2,29 @@ import { Route, Routes } from "react-router-dom";
 import LoginPage from "./pages/log-in-page";
 import SignUpPage from "./pages/sign-up-page";
 import HomeContainer from "./containers/home-container";
+import AdminContainer from "./containers/admin-container";
+import AuthLayout from "./layouts/auth-layout";
 
 function App() {
   return (
     <Routes>
-      <Route path="log-in" element={<LoginPage />} />
-      <Route path="sign-up" element={<SignUpPage />} />
+      <Route
+        path="log-in"
+        element={
+          <AuthLayout>
+            <LoginPage />
+          </AuthLayout>
+        }
+      />
+      <Route
+        path="sign-up"
+        element={
+          <AuthLayout>
+            <SignUpPage />
+          </AuthLayout>
+        }
+      />
+      <Route path="/admin/*" element={<AdminContainer />} />
       <Route path="/*" element={<HomeContainer />} />
     </Routes>
   );

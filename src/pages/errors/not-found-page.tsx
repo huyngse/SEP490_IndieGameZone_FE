@@ -20,12 +20,12 @@ const NotFoundPage = () => {
           <div className="text-white z-10">0</div>
           <div className="rotate-3 z-10">4</div>
         </div>
-        <h2 className="mt-4 text-2xl font-semibold">Không tìm thấy trang</h2>
+        <h2 className="mt-4 text-2xl font-semibold">Page Not Found</h2>
         <p className="mt-2 text-gray-200">
-          Rất tiếc, trang bạn đang tìm kiếm không tồn tại.
+          Sorry, the page you are looking for does not exist.
         </p>
         <Button onClick={goBack} className="mt-6 inline-block">
-          Quay về
+          Go Back
         </Button>
       </div>
     </div>
