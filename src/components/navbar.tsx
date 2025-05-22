@@ -1,6 +1,6 @@
 import { Link, useNavigate } from "react-router-dom";
 import MaxWidthWrapper from "./max-width-wrapper";
-import logo from "@/assets/controller_folder_games_icon.png";
+import logo from "@/assets/videogame.png";
 import { Button, GetProp, Menu, MenuProps, Popover } from "antd";
 import { IoMdMore } from "react-icons/io";
 import {

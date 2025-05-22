@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="434.79269"
+   height="47.588619"
+   viewBox="0 0 434.79269 47.588619"
+   version="1.1"
+   id="svg1"
+   sodipodi:docname="indiegamezone-logo.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview1"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:document-units="px" />
+  <defs
+     id="defs1">
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath3">
+      <rect
+         style="fill:none;fill-opacity:1;stroke:#00ff00;stroke-width:3;stroke-linecap:round;stroke-linejoin:round"
+         id="rect4"
+         width="402.29114"
+         height="22.473101"
+         x="576.755"
+         y="632.98065" />
+    </clipPath>
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath4">
+      <rect
+         style="fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:3;stroke-linecap:round;stroke-linejoin:round"
+         id="rect5"
+         width="402.29114"
+         height="22.473101"
+         x="576.755"
+         y="610.50757" />
+    </clipPath>
+  </defs>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(-569.45408,-603.93841)">
+    <rect
+       style="fill:#ff6600;stroke:none;stroke-width:0.738731;stroke-linecap:square;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1"
+       id="rect2"
+       width="37.540619"
+       height="38.820995"
+       x="1126.4711"
+       y="624.53656"
+       transform="matrix(1,0,-0.2547061,0.96701851,0,0)"
+       ry="3.1115992" />
+    <text
+       xml:space="preserve"
+       style="font-size:51.4439px;font-family:'Rockwell Extra Bold';-inkscape-font-specification:'Rockwell Extra Bold, ';text-align:center;text-anchor:middle;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:11.5749;stroke-linecap:round;stroke-linejoin:round"
+       x="778.15784"
+       y="647.03271"
+       id="text1"
+       clip-path="url(#clipPath4)"
+       transform="matrix(1,0,-0.36003636,1,225.44513,-0.0329985)"><tspan
+         sodipodi:role="line"
+         id="tspan1"
+         x="778.15784"
+         y="647.03271"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Russo One';-inkscape-font-specification:'Russo One';stroke-width:11.5749">IndieGameZone</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:51.4439px;font-family:'Rockwell Extra Bold';-inkscape-font-specification:'Rockwell Extra Bold, ';text-align:center;text-anchor:middle;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:11.5749;stroke-linecap:round;stroke-linejoin:round"
+       x="778.15784"
+       y="647.03271"
+       id="text2"
+       clip-path="url(#clipPath3)"
+       transform="matrix(1,0,-0.36003636,1,227.88512,-0.54743751)"><tspan
+         sodipodi:role="line"
+         id="tspan2"
+         x="778.15784"
+         y="647.03271"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Russo One';-inkscape-font-specification:'Russo One';stroke-width:11.5749">IndieGameZone</tspan></text>
+    <rect
+       style="fill:#ff6600;stroke:none;stroke-width:0.181238;stroke-linecap:square;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1"
+       id="rect3"
+       width="26.486206"
+       height="3.3118892"
+       x="876.7547"
+       y="717.04993"
+       transform="matrix(1,0,-0.42659204,0.90444415,0,0)" />
+  </g>
+</svg>
