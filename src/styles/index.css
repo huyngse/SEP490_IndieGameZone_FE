@@ -1,11 +1,22 @@
 @import "tailwindcss";
 
-body {
+body.dark {
   background-color: #09090b;
   color: #e0e0e0;
   font-family: Arial, sans-serif;
 }
 
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+textarea:-webkit-autofill,
+textarea:-webkit-autofill:hover,
+textarea:-webkit-autofill:focus,
+select:-webkit-autofill,
+select:-webkit-autofill:hover,
+select:-webkit-autofill:focus {
+  transition: all 2147483647s;
+}
 .hover-underline {
   position: relative;
   display: inline-block;
@@ -236,51 +247,59 @@ body {
   left: 95%;
 }
 
-.nft-card{
-  user-select:none;
+.nft-card {
+  user-select: none;
   border: 1px solid #ffffff22;
   background-color: #282c34;
-  background: linear-gradient(0deg, rgba(40,44,52,1) 0%, rgba(17,0,32,.5) 100%);
+  background: linear-gradient(0deg, rgba(40, 44, 52, 1) 0%, rgba(17, 0, 32, .5) 100%);
   box-shadow: 0 7px 20px 5px #00000088;
   border-radius: .3rem;
   backdrop-filter: blur(7px);
   -webkit-backdrop-filter: blur(7px);
   overflow: hidden;
   transition: .5s all;
-  hr{
+
+  hr {
     width: 100%;
     border: none;
     border-bottom: 1px solid #88888855;
     margin-top: 0;
   }
-  ins{
+
+  ins {
     text-decoration: none;
   }
-  .main{
+
+  .main {
     display: flex;
     flex-direction: column;
     width: 100%;
     padding: 0;
-    .tokenImage{
+
+    .tokenImage {
       border-radius: .3rem;
       max-width: 100%;
       height: 150px;
       object-fit: cover;
     }
-    .description{
+
+    .description {
       margin: .5rem 0;
       color: #a89ec9;
     }
-    .creator{
+
+    .creator {
       display: flex;
       align-items: center;
       margin-top: .2rem;
       margin-bottom: -.3rem;
-      ins{
+
+      ins {
         color: #a89ec9;
         text-decoration: none;
       }
-      .wrapper{
+
+      .wrapper {
         display: flex;
         align-items: center;
         border: 1px solid #ffffff22;
@@ -289,7 +308,8 @@ body {
         margin-right: .5rem;
         border-radius: 100%;
         box-shadow: inset 0 0 0 4px #000000aa;
-        img{
+
+        img {
           border-radius: 100%;
           border: 1px solid #ffffff22;
           width: 2rem;
@@ -300,7 +320,8 @@ body {
       }
     }
   }
-  ::before{
+
+  ::before {
     position: fixed;
     content: "";
     box-shadow: 0 0 100px 40px #ffffff08;
@@ -310,12 +331,14 @@ body {
     height: 60rem;
     transition: .7s all;
   }
-  &:hover{
+
+  &:hover {
     border: 1px solid #ffffff44;
     box-shadow: 0 7px 50px 10px #000000aa;
     transform: scale(1.015);
     filter: brightness(1.3);
-    ::before{
+
+    ::before {
       filter: brightness(.5);
       top: -100%;
       left: 200%;
@@ -323,12 +346,13 @@ body {
   }
 }
 
-.bg{
+.bg {
   position: fixed;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  h1{
+
+  h1 {
     font-size: 20rem;
     filter: opacity(0.5);
   }
