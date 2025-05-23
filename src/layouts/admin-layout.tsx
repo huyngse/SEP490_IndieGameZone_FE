@@ -1,13 +1,13 @@
-import { ConfigProvider, theme } from "antd";
-import React, { ReactNode } from "react";
+import { Avatar, Button, ConfigProvider, theme } from "antd";
+import React, { ReactNode, use, useState } from "react";
 import type { MenuProps } from "antd";
 import { Layout, Menu } from "antd";
-import { CiCamera, CiCloud, CiShop, CiUser } from "react-icons/ci";
-import { IoCloudUploadOutline } from "react-icons/io5";
-import { AiOutlineBarChart } from "react-icons/ai";
-import { FaAppStore } from "react-icons/fa";
-import { FaUserGroup } from "react-icons/fa6";
+import { MenuFoldOutlined, MenuUnfoldOutlined } from "@ant-design/icons";
 import logo from "@/assets/indiegamezone-logo.svg";
+import { useNavigate } from "react-router-dom";
+import { MdSpaceDashboard } from "react-icons/md";
+import { BiSolidUserAccount } from "react-icons/bi";
+import { LiaLanguageSolid } from "react-icons/lia";
 
 const { Header, Content, Footer, Sider } = Layout;
 
@@ -22,22 +22,46 @@ const siderStyle: React.CSSProperties = {
   scrollbarGutter: "stable",
 };
 
-const items: MenuProps["items"] = [
-  CiUser,
-  CiCamera,
-  IoCloudUploadOutline,
-  AiOutlineBarChart,
-  CiCloud,
-  FaAppStore,
-  FaUserGroup,
-  CiShop,
-].map((icon, index) => ({
-  key: String(index + 1),
-  icon: React.createElement(icon),
-  label: `nav ${index + 1}`,
-}));
-
 const AdminLayout = ({ children }: { children: ReactNode }) => {
+  const [collapsed, setCollapsed] = useState(false);
+
+  const navigate = useNavigate();
+  const items: MenuProps["items"] = [
+    {
+      key: "1",
+      icon: <MdSpaceDashboard />,
+      label: "Dashboard",
+      onClick: () => {
+        navigate("/admin/dashboard");
+      },
+    },
+    {
+      key: "2",
+      icon: <BiSolidUserAccount />,
+      label: "Manage Accounts",
+      children: [
+        {
+          key: "2-1",
+          label: "Manage Users",
+          onClick: () => {
+            navigate("/admin/manage-users");
+          },
+        },
+        {
+          key: "2-2",
+          label: "Manage Developers",
+          onClick: () => {
+            navigate("/admin/manage-developers");
+          },
+        },
+      ],
+    },
+    {
+      key: "3",
+      icon: <LiaLanguageSolid />,
+      label: "Manage Languages",
+    },
+  ];
   const {
     token: { colorBgContainer },
   } = theme.useToken();
@@ -53,25 +77,39 @@ const AdminLayout = ({ children }: { children: ReactNode }) => {
       }}
     >
       <Layout hasSider>
-        <Sider style={siderStyle} width={256}>
+        <Sider trigger={null} collapsible collapsed={collapsed} style={siderStyle} width={256}>
           <div className="p-3 my-3">
             <img src={logo} alt="indiegamezone logo" className="w-40" />
           </div>
-          <Menu
-            theme="dark"
-            mode="inline"
-            defaultSelectedKeys={["4"]}
-            items={items}
-          />
+          <Menu theme="dark" mode="inline" defaultSelectedKeys={["4"]} items={items} />
         </Sider>
         <Layout>
-          <Header style={{ padding: 0, background: colorBgContainer }} />
-          <Content style={{ margin: "24px 16px 0", overflow: "initial" }}>
-            {children}
-          </Content>
-          <Footer style={{ textAlign: "center" }}>
-            Ant Design ©{new Date().getFullYear()} Created by Ant UED
-          </Footer>
+          <Header style={{ padding: 0, background: colorBgContainer, boxShadow: "0 2px 4px rgba(0,0,0,0.1)" }}>
+            <div className="flex items-center justify-between h-full pr-2 ">
+              <Button
+                type="text"
+                icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
+                onClick={() => setCollapsed(!collapsed)}
+                style={{
+                  fontSize: "16px",
+                  width: 64,
+                  height: 64,
+                }}
+              />
+
+              <Avatar
+                size={50}
+                src={
+                  <img
+                    src="https://st.quantrimang.com/photos/image/2022/01/27/Avatar-Free-Fire-ngau-12.jpg"
+                    alt="avatar"
+                  />
+                }
+              />
+            </div>
+          </Header>
+          <Content style={{ margin: "24px 16px 0", overflow: "initial" }}>{children}</Content>
+          <Footer style={{ textAlign: "center" }}>Ant Design ©{new Date().getFullYear()} Created by Ant UED</Footer>
         </Layout>
       </Layout>
     </ConfigProvider>
