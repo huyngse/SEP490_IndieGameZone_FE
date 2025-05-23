@@ -2,6 +2,7 @@ import { Form, Input, Button } from "antd";
 import logo from "@/assets/indiegamezone-logo.svg";
 import { Link } from "react-router-dom";
 import background from "@/assets/wow-bg.jpg"
+
 const LogInPage = () => {
   return (
     <div className="grid grid-cols-2 h-screen bg-zinc-800">
