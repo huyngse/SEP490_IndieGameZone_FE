@@ -15,17 +15,17 @@ const UserProfileContainer = ({ children }: { children: ReactNode }) => {
       type: "group",
       children: [
         {
-          key: "/profile/library",
+          key: "/account/library",
           label: "My Library",
           onClick: () => {
-            navigate("/profile/library");
+            navigate("/account/library");
           },
         },
         {
-          key: "/profile/ratings-and-reviews",
+          key: "/account/ratings-and-reviews",
           label: "Ratings & Reviews",
           onClick: () => {
-            navigate("/profile/ratings-and-reviews");
+            navigate("/account/ratings-and-reviews");
           },
         },
       ],
@@ -36,17 +36,17 @@ const UserProfileContainer = ({ children }: { children: ReactNode }) => {
       type: "group",
       children: [
         {
-          key: "/profile",
+          key: "/account/profile",
           label: "Profile",
           onClick: () => {
-            navigate("/profile");
+            navigate("/account/profile");
           },
         },
         {
-          key: "/profile/password",
+          key: "/account/password",
           label: "Password",
           onClick: () => {
-            navigate("/profile/password");
+            navigate("/account/password");
           },
         },
       ],
@@ -57,17 +57,17 @@ const UserProfileContainer = ({ children }: { children: ReactNode }) => {
       type: "group",
       children: [
         {
-          key: "/profile/credit-card",
+          key: "/account/credit-card",
           label: "Credit Card",
           onClick: () => {
-            navigate("/profile/credit-card");
+            navigate("/account/credit-card");
           },
         },
         {
-          key: "/profile/transction-history",
+          key: "/account/transction-history",
           label: "Transction History",
           onClick: () => {
-            navigate("/profile/transction-history");
+            navigate("/account/transction-history");
           },
         },
       ],
@@ -78,10 +78,10 @@ const UserProfileContainer = ({ children }: { children: ReactNode }) => {
       type: "group",
       children: [
         {
-          key: "/profile/email-notification",
+          key: "/account/email-notification",
           label: "Email Notifications",
           onClick: () => {
-            navigate("/profile/email-notification");
+            navigate("/account/email-notification");
           },
         },
       ],
@@ -92,17 +92,17 @@ const UserProfileContainer = ({ children }: { children: ReactNode }) => {
       type: "group",
       children: [
         {
-          key: "/profile/privacy",
+          key: "/account/privacy",
           label: "Privacy",
           onClick: () => {
-            navigate("/profile/privacy");
+            navigate("/account/privacy");
           },
         },
         {
-          key: "/profile/delete-account",
+          key: "/account/delete-account",
           label: "Delete Account",
           onClick: () => {
-            navigate("/profile/delete-account");
+            navigate("/account/delete-account");
           },
         },
       ],
@@ -123,12 +123,14 @@ const UserProfileContainer = ({ children }: { children: ReactNode }) => {
             style={{ background: colorBgContainer }}
           >
             <Menu
-              defaultSelectedKeys={[location.pathname]}
+              selectedKeys={[location.pathname]}
               mode="inline"
               items={items}
             />
           </div>
-          <div className="col-span-10">{children}</div>
+          <div className="col-span-10" style={{ background: colorBgContainer }}>
+            {children}
+          </div>
         </div>
       </div>
     </MaxWidthWrapper>

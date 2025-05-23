@@ -9,7 +9,7 @@ const HomeContainer = () => {
     <HomeLayout>
       <Routes>
         <Route path="/" element={<HomePage />} />
-        <Route path="/profile/*" element={<UserProfileContaienr />} />
+        <Route path="/account/*" element={<UserProfileContaienr />} />
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </HomeLayout>

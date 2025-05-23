@@ -1,7 +1,6 @@
 import { Avatar, Dropdown, MenuProps } from "antd";
 import { CiUser } from "react-icons/ci";
-import { FaDoorOpen, FaUserAlt } from "react-icons/fa";
-import { IoIosSettings } from "react-icons/io";
+import { FaDoorOpen, FaLightbulb, FaStar, FaUserAlt } from "react-icons/fa";
 import { RiBookShelfLine } from "react-icons/ri";
 import { useNavigate } from "react-router-dom";
 
@@ -15,9 +14,9 @@ const ProfileMenu = () => {
   const items: MenuProps["items"] = [
     {
       key: "1",
-      label: "My Account",
+      label: "My Profile",
       icon: <FaUserAlt />,
-      onClick: () => navigate("/profile")
+      onClick: () => navigate("/account/profile"),
     },
     {
       type: "divider",
@@ -26,13 +25,19 @@ const ProfileMenu = () => {
       key: "2",
       label: "My Library",
       icon: <RiBookShelfLine />,
-      onClick: () => navigate("/profile/library")
+      onClick: () => navigate("/account/library"),
+    },
+    {
+      key: "3",
+      label: "Ratings & Reviews",
+      icon: <FaStar />,
+      onClick: () => navigate("/account/ratings-and-reviews"),
     },
     {
       key: "4",
-      label: "Settings",
-      icon: <IoIosSettings />,
-      onClick: () => navigate("/profile/settings")
+      label: "Recommendations ",
+      icon: <FaLightbulb />,
+      onClick: () => navigate("/recommendations"),
     },
     {
       type: "divider",
@@ -42,7 +47,9 @@ const ProfileMenu = () => {
       label: "Log Out",
       icon: <FaDoorOpen />,
       danger: true,
-      onClick: () => {handleLogout}
+      onClick: () => {
+        handleLogout;
+      },
     },
   ];
 
