@@ -60,6 +60,9 @@ const AdminLayout = ({ children }: { children: ReactNode }) => {
       key: "3",
       icon: <LiaLanguageSolid />,
       label: "Manage Languages",
+      onClick: () => {
+        navigate("/admin/manage-languages");
+      },  
     },
   ];
   const {
