@@ -6,7 +6,7 @@ const UserProfileContaienr = () => {
   return (
     <UserProfileContainer>
       <Routes>
-        <Route path="/" element={<UserProfilePage />} />
+        <Route path="/profile" element={<UserProfilePage />} />
       </Routes>
     </UserProfileContainer>
   );
