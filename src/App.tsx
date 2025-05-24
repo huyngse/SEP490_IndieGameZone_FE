@@ -4,6 +4,7 @@ import SignUpPage from "./pages/sign-up-page";
 import HomeContainer from "./containers/home-container";
 import AdminContainer from "./containers/admin-container";
 import AuthLayout from "./layouts/auth-layout";
+import AdminLoginPage from "./pages/admin/admin-login-page";
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
           </AuthLayout>
         }
       />
+      <Route path="/admin/log-in" element={<AdminLoginPage />} />
       <Route path="/admin/*" element={<AdminContainer />} />
       <Route path="/*" element={<HomeContainer />} />
     </Routes>

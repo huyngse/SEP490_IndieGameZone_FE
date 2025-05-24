@@ -1,8 +1,8 @@
 import { Form, Input, Button } from "antd";
 import logo from "@/assets/indiegamezone-logo.svg";
 import { Link } from "react-router-dom";
-import background from "@/assets/wow-bg.jpg"
-
+import background from "@/assets/wow-bg.jpg";
+import googleIcon from "@/assets/google_icon.png";
 const LogInPage = () => {
   return (
     <div className="grid grid-cols-2 h-screen bg-zinc-800">
@@ -18,7 +18,10 @@ const LogInPage = () => {
         </Link>
         <div className="absolute top-52 w-2/3 left-7">
           <p className="font-extrabold text-5xl">Play Bold. Publish Free.</p>
-          <p className="">Empowering developers to publish their vision, and players to find the next big thing before it goes mainstream.</p>
+          <p className="">
+            Empowering developers to publish their vision, and players to find
+            the next big thing before it goes mainstream.
+          </p>
         </div>
       </div>
 
@@ -74,6 +77,22 @@ const LogInPage = () => {
               </Form.Item>
             </div>
           </Form>
+          <div className="flex justify-between gap-4 items-center">
+            <div className="border border-zinc-500 flex-1"></div>
+            <p>OR</p>
+            <div className="border border-zinc-500 flex-1"></div>
+          </div>
+          <Button
+            className="w-full mt-5"
+            style={{
+              paddingBlock: 20,
+              fontWeight: "bold",
+              textTransform: "uppercase",
+            }}
+          >
+            <img src={googleIcon} alt="" className="size-4 me-2" />
+            Log in with Google
+          </Button>
         </div>
       </div>
     </div>
