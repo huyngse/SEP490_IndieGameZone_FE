@@ -1,7 +1,15 @@
+import UserProfileContainer from "@/layouts/user-profile-layout";
+import UserProfilePage from "@/pages/user-profile/user-profile-page";
+import { Route, Routes } from "react-router-dom";
+
 const UserProfileContaienr = () => {
   return (
-    <div>UserProfileContaienr</div>
-  )
-}
+    <UserProfileContainer>
+      <Routes>
+        <Route path="/profile" element={<UserProfilePage />} />
+      </Routes>
+    </UserProfileContainer>
+  );
+};
 
-export default UserProfileContaienr
+export default UserProfileContaienr;

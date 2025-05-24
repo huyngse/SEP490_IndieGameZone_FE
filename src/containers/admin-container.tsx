@@ -1,5 +1,4 @@
 import AdminLayout from "@/layouts/admin-layout";
-import AdminLoginPage from "@/pages/admin/admin-login-page";
 import DashBoardPage from "@/pages/admin/dashboard-page";
 import ManageCategories from "@/pages/admin/manage-categories/manage-categories";
 import ManageLanguages from "@/pages/admin/manage-languages/manage-languages";
@@ -13,7 +12,6 @@ const AdminContainer = () => {
       <Routes>
         <Route path="/" element={<DashBoardPage />} />
         <Route path="/dashboard" element={<DashBoardPage />} />
-        <Route path="/log-in" element={<AdminLoginPage />} />
         <Route path="*" element={<AdminNotFoundPage />} />
         <Route path="/manage-languages" element={<ManageLanguages />} />
         <Route path="/manage-tags" element={<ManageTags />} />

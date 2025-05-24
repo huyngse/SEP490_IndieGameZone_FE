@@ -11,6 +11,7 @@ import {
   FaTwitter,
 } from "react-icons/fa";
 import { useCallback } from "react";
+import ProfileMenu from "./profile-menu";
 
 type MenuItem = GetProp<MenuProps, "items">[number];
 
@@ -75,7 +76,11 @@ const Navbar = () => {
             <img src={logo} alt="IndeGameZone Logo" className="size-7" />
             <h1 className="font-bold text-xl">IndieGameZone</h1>
           </Link>
-          <Popover content={popOverContent} styles={{ body: { padding: 0 , border: "1px solid black"} }} trigger={"click"}>
+          <Popover
+            content={popOverContent}
+            styles={{ body: { padding: 0, border: "1px solid black" } }}
+            trigger={"click"}
+          >
             <Button
               type="text"
               shape="circle"
@@ -88,6 +93,7 @@ const Navbar = () => {
             Đăng Nhập
           </Button>
           <Button onClick={goToSignUp}>Đăng Ký</Button>
+          <ProfileMenu />
         </div>
       </MaxWidthWrapper>
     </div>
