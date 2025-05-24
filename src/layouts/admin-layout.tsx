@@ -5,9 +5,10 @@ import { Layout, Menu } from "antd";
 import { MenuFoldOutlined, MenuUnfoldOutlined } from "@ant-design/icons";
 import logo from "@/assets/indiegamezone-logo.svg";
 import { useNavigate } from "react-router-dom";
-import { MdSpaceDashboard } from "react-icons/md";
+import { MdCategory, MdSpaceDashboard } from "react-icons/md";
 import { BiSolidUserAccount } from "react-icons/bi";
 import { LiaLanguageSolid } from "react-icons/lia";
+import { FaTags } from "react-icons/fa";
 
 const { Header, Content, Footer, Sider } = Layout;
 
@@ -62,7 +63,25 @@ const AdminLayout = ({ children }: { children: ReactNode }) => {
       label: "Manage Languages",
       onClick: () => {
         navigate("/admin/manage-languages");
-      },  
+      },
+    },
+    {
+      key: "4",
+      icon: <FaTags />,
+      label: "Manage Tags",
+      onClick: () => {
+        navigate("/admin/manage-tags");
+      },
+      
+    },
+      {
+      key: "5",
+      icon: <MdCategory />,
+      label: "Manage Categories",
+      onClick: () => {
+        navigate("/admin/manage-categories");
+      },
+      
     },
   ];
   const {
