@@ -9,6 +9,9 @@ import { MdCategory, MdSpaceDashboard } from "react-icons/md";
 import { BiSolidUserAccount } from "react-icons/bi";
 import { LiaLanguageSolid } from "react-icons/lia";
 import { FaTags } from "react-icons/fa";
+import { CiDiscount1 } from "react-icons/ci";
+import { GrAchievement } from "react-icons/gr";
+import { GiAbstract018, GiFlatPlatform } from "react-icons/gi";
 
 const { Header, Content, Footer, Sider } = Layout;
 
@@ -78,6 +81,42 @@ const AdminLayout = ({ children }: { children: ReactNode }) => {
       key: "5",
       icon: <MdCategory />,
       label: "Manage Categories",
+      onClick: () => {
+        navigate("/admin/manage-categories");
+      },
+      
+    },
+    {
+      key: "6",
+      icon: <CiDiscount1 />,
+      label: "Manage Dicounts",
+      onClick: () => {
+        navigate("/admin/manage-categories");
+      },
+      
+    },
+    {
+      key: "7",
+      icon: <GrAchievement />,
+      label: "Manage Achievements",
+      onClick: () => {
+        navigate("/admin/manage-categories");
+      },
+      
+    },
+      {
+      key: "8",
+      icon: <GiAbstract018 />,
+      label: "Manage Age Restrictions",
+      onClick: () => {
+        navigate("/admin/manage-categories");
+      },
+      
+    },
+        {
+      key: "8",
+      icon: <GiFlatPlatform />,
+      label: "Manage Platforms",
       onClick: () => {
         navigate("/admin/manage-categories");
       },
