@@ -13,7 +13,6 @@ const salesDate1 = new Date(
 const salesDate2 = new Date(
   new Date().setDate(today.getDate() + 7)
 ).toISOString();
-console.log(salesDate1);
 const settings = {
   dots: true,
   infinite: true,

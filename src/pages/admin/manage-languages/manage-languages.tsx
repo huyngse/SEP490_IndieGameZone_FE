@@ -1,50 +1,28 @@
-import { axiosClient } from "@/lib/api/config/axios-client";
 import { Language } from "@/types/language";
-import { Button, Space, Table, TableProps, message } from "antd";
+import { Button, Space, Table, TableProps } from "antd";
 import { useEffect, useState } from "react";
 import { CiEdit } from "react-icons/ci";
 import { MdOutlineDeleteForever } from "react-icons/md";
 import AddLanguageModal from "./add-language";
 import EditLanguageModal from "./edit-language";
 import DeleteLanguageModal from "./delete-language";
-
-// Sử dụng type Language đã được khai báo
-type DataType = Language & {
-  key: string;
-}
+import useLanguageStore from "@/store/use-language-store";
 
 const ManageLanguages = () => {
-  const [data, setData] = useState<DataType[]>([]);
-  const [loading, setLoading] = useState(false);
+  const { fetchLanguages, loading, languages } = useLanguageStore();
   const [addModalOpen, setAddModalOpen] = useState(false);
   const [editModalOpen, setEditModalOpen] = useState(false);
   const [deleteModalOpen, setDeleteModalOpen] = useState(false);
-  const [selectedLanguage, setSelectedLanguage] = useState<Language | null>(null);
+  const [selectedLanguage, setSelectedLanguage] = useState<Language | null>(
+    null
+  );
 
-  const fetchLanguages = async () => {
-    try {
-      setLoading(true);
-      const response = await axiosClient.get("/languages");
-      setData(
-        response.data.map((item: Language) => ({
-          key: item.id || item.name,
-          id: item.id,
-          name: item.name,
-        }))
-      );
-    } catch (error) {
-      message.error("Failed to fetch languages");
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const handleEdit = (record: DataType) => {
+  const handleEdit = (record: Language) => {
     setSelectedLanguage(record);
     setEditModalOpen(true);
   };
 
-  const handleDelete = (record: DataType) => {
+  const handleDelete = (record: Language) => {
     setSelectedLanguage(record);
     setDeleteModalOpen(true);
   };
@@ -53,7 +31,7 @@ const ManageLanguages = () => {
     fetchLanguages();
   };
 
-  const columns: TableProps<DataType>["columns"] = [
+  const columns: TableProps<Language>["columns"] = [
     {
       title: "Name",
       dataIndex: "name",
@@ -66,25 +44,16 @@ const ManageLanguages = () => {
       render: (_, record) => (
         <Space size="small">
           <Button
-            style={{
-              borderRadius: 5,
-              paddingBlock: 20,
-              boxShadow: "0 0 10px rgba(96, 84, 84, 0.2)",
-              backgroundColor: "#0066FF",
-            }}
-            type="primary"
+            type="default"
+            shape={"circle"}
             onClick={() => handleEdit(record)}
           >
             <CiEdit />
           </Button>
           <Button
-            style={{
-              borderRadius: 5,
-              paddingBlock: 20,
-              boxShadow: "0 0 10px rgba(96, 84, 84, 0.2)",
-              backgroundColor: "#FF3333",
-            }}
-            type="primary"
+            type="default"
+            shape={"circle"}
+            danger
             onClick={() => handleDelete(record)}
           >
             <MdOutlineDeleteForever />
@@ -99,29 +68,21 @@ const ManageLanguages = () => {
   }, []);
 
   return (
-    <div className="p-5">
-      <h1 className="text-3xl font-bold mb-5">Manage Languages</h1>
-      
+    <div className="px-5">
       <div className="">
-        <div className="flex justify-end py-3">
-          <Button
-            style={{ 
-              borderRadius: 5, 
-              paddingBlock: 20, 
-              boxShadow: "0 0 10px rgba(96, 84, 84, 0.2)" 
-            }}
-            type="primary"
-            onClick={() => setAddModalOpen(true)}
-          >
+        <div className="flex justify-between py-3">
+          <h1 className="text-3xl font-bold mb-5">Manage Languages</h1>
+          <Button type="primary" onClick={() => setAddModalOpen(true)}>
             Add New Languages
           </Button>
         </div>
-        
-        <Table<DataType> 
-          columns={columns} 
-          dataSource={data} 
+
+        <Table<Language>
+          columns={columns}
+          dataSource={languages}
           loading={loading}
-          rowClassName={"border border-red-500"} 
+          bordered
+          rowKey={(x) => x.id}
         />
       </div>
 
