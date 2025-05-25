@@ -1,10 +1,12 @@
-/* .ant-table .ant-table-container .ant-table-content table thead.ant-table-thead .ant-table-cell {
-  background-color: rgb(255, 188, 136);
-} */
+.ant-table .ant-table-container .ant-table-content table thead.ant-table-thead .ant-table-cell {
+  background-color: #FF6600;
+  color: white;
+}
 
 .ant-table .ant-table-container {
   border-radius: 5px;
-  box-shadow: 0 0 10px rgba(96, 84, 84, 0.2);
+  border: 1px solid rgb(199, 199, 199);
+  box-shadow: 0 0 10px rgba(96, 84, 84, 0.1);
   overflow: hidden;
 }
 .ant-message {
