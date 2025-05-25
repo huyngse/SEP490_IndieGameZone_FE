@@ -3,6 +3,7 @@ import logo from "@/assets/indiegamezone-logo.svg";
 import { Link } from "react-router-dom";
 import background from "@/assets/wow-bg.jpg";
 import googleIcon from "@/assets/google_icon.png";
+
 const LogInPage = () => {
   return (
     <div className="grid grid-cols-2 h-screen bg-zinc-800">

@@ -25,7 +25,14 @@ function App() {
           </AuthLayout>
         }
       />
-      <Route path="/admin/log-in" element={<AdminLoginPage />} />
+      <Route
+        path="/admin/log-in"
+        element={
+          <AuthLayout>
+            <AdminLoginPage />
+          </AuthLayout>
+        }
+      />
       <Route path="/admin/*" element={<AdminContainer />} />
       <Route path="/*" element={<HomeContainer />} />
     </Routes>
