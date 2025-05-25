@@ -1,15 +1,18 @@
 import { axiosClient } from './config/axios-client';
 
-export const handleApiError = (error: any) => {
-    try {
-        const errorMessage = error.response?.data.message || error?.message || 'An unexpected error occurred.';
-        const data = null;
-        return { error: errorMessage, data };
-    } catch (err) {
-        throw new Error('An unexpected error occurred.');
-    }
+export interface ApiResponse {
+  error: string | null;
+  data: any;
+  success: boolean;
+}
+export const handleApiError = (error: any): ApiResponse => {
+  try {
+    const errorMessage = error.response?.data.message || error?.message || 'An unexpected error occurred.';
+    return { error: errorMessage, data: null, success: false };
+  } catch (err) {
+    return { error: 'Đã xảy ra lỗi không mong muốn.', data: null, success: false };
+  }
 };
-
 export const getAllTags = async () => {
     try {
         const { data } = await axiosClient.get(`/api/Tags`);
@@ -17,4 +20,40 @@ export const getAllTags = async () => {
     } catch (error) {
         return handleApiError(error);
     }
-}
+};
+
+export const createTag = async (tagData: { name: string }) => {
+    try {
+        const { data } = await axiosClient.post('/api/Tags', tagData);
+        return { error: null, data: data, success: true };
+    } catch (error) {
+        return handleApiError(error);
+    }
+};
+
+export const updateTag = async (tagId: string | number, tagData: { name: string }) => {
+    try {
+        const { data } = await axiosClient.put(`/api/Tags/${tagId}`, tagData);
+        return { error: null, data: data, success: true };
+    } catch (error) {
+        return handleApiError(error);
+    }
+};
+
+export const deleteTag = async (tagId: string | number) => {
+    try {
+        const { data } = await axiosClient.delete(`/api/Tags/${tagId}`);
+        return { error: null, data: data, success: true };
+    } catch (error) {
+        return handleApiError(error);
+    }
+};
+
+export const getTagById = async (tagId: string | number) => {
+    try {
+        const { data } = await axiosClient.get(`/api/Tags/${tagId}`);
+        return { error: null, data: data, success: true };
+    } catch (error) {
+        return handleApiError(error);
+    }
+};

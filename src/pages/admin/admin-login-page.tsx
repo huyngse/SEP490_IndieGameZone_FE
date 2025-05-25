@@ -23,7 +23,7 @@ const LoginAdminPage = () => {
             <Link to={"/"} className="">
               <img src={logo} alt="" className="w-80" />
             </Link>
-            <p className="font-bold absolute right-0 -bottom-5">Admin</p>
+            <p className="font-bold absolute right-0 -bottom-5">Admin and Moderator</p>
           </div>
           <p className="text-lg font-mono text-center mt-6 bg-zinc-800/50">
             This is the login page for Admin and Moderator only.
