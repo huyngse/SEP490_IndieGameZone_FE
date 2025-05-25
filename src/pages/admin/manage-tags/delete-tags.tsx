@@ -1,8 +1,7 @@
-import { axiosClient } from "@/lib/api/config/axios-client";
+import { deleteTag } from "@/lib/api/tag-api";
 import { Tag } from "@/types/tag";
 import { Modal, message } from "antd";
 import { useState } from "react";
-
 
 interface DeleteTagModalProps {
   open: boolean;
@@ -19,11 +18,15 @@ const DeleteTag = ({ open, onClose, onSuccess, tag }: DeleteTagModalProps) => {
     
     try {
       setLoading(true);
-      await axiosClient.delete(`/tags/${tag.id}`);
+      const result = await deleteTag(tag.id);
       
-      message.success("Tag deleted successfully!");
-      onClose();
-      onSuccess(); 
+      if (result.success) {
+        message.success("Tag deleted successfully!");
+        onClose();
+        onSuccess();
+      } else {
+        message.error(result.error || "Failed to delete tag");
+      }
     } catch (error) {
       message.error("Failed to delete tag");
     } finally {

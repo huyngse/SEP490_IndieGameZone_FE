@@ -1,4 +1,4 @@
-import { axiosClient } from "@/lib/api/config/axios-client";
+import { updateTag } from "@/lib/api/tag-api";
 import { Tag } from "@/types/tag";
 import { Form, Input, Modal, message } from "antd";
 import { useEffect, useState } from "react";
@@ -23,13 +23,15 @@ const EditTag = ({ open, onClose, onSuccess, tag }: EditTagModalProps) => {
 
     try {
       setLoading(true);
-      await axiosClient.put(`/tags/${tag.id}`, {
-        name: values.name,
-      });
-
-      message.success("Tag updated successfully!");
-      onClose();
-      onSuccess();
+      const result = await updateTag(tag.id, { name: values.name });
+      
+      if (result.success) {
+        message.success("Tag updated successfully!");
+        onClose();
+        onSuccess();
+      } else {
+        message.error(result.error || "Failed to update tag");
+      }
     } catch (error) {
       message.error("Failed to update tag");
     } finally {
