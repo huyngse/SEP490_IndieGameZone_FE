@@ -22,7 +22,7 @@ const mockData = [
     name: "Time to Morp",
     coverImage: game1CoverImage,
     images: [game1Image1, game1Image2, game1Image3, game1Image4],
-    genres: ["Phiêu lưu", "Thông thường", "Mô phỏng"],
+    genres: ["Adventure", "Normally", "Simulation"],
     price: 260_000,
   },
   {
@@ -30,7 +30,7 @@ const mockData = [
     name: "Floating Sandbox",
     coverImage: game2CoverImage,
     images: [game2Image1, game2Image2, game2Image3, game2Image4],
-    genres: ["Mô phỏng"],
+    genres: ["Simulation"],
     price: 0,
   },
   {
@@ -38,7 +38,7 @@ const mockData = [
     name: "Baldi's Basics Plus",
     coverImage: game3CoverImage,
     images: [game3Image1, game3Image2, game3Image3, game3Image4],
-    genres: ["Hành động", "Chiến thuật"],
+    genres: ["Action", "Strategy"],
     price: 120_000,
   },
 ];
@@ -62,7 +62,7 @@ const settings = {
 const FeaturedGameSection = () => {
   return (
     <section className="pb-9">
-      <h2 className="my-3 text-2xl font-bold">Game Nổi Bật</h2>
+      <h2 className="my-3 text-2xl font-bold">Featured Games</h2>
       <Slider {...settings}>
         {mockData.map((game) => {
           return (

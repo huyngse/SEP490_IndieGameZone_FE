@@ -67,7 +67,7 @@ const mockData = [
 const SpecialOffersSection = () => {
   return (
     <section className="pb-9 ">
-      <h2 className="text-2xl font-bold text-center my-5">Ưu Đãi Đặc Biệt</h2>
+      <h2 className="text-2xl font-bold text-center my-5">Special Offers</h2>
       <Slider {...settings}>
         {mockData.map((game) => {
           return (
@@ -94,8 +94,8 @@ const SpecialOffersSection = () => {
                     {new Date(game.salesUtil).getDate() -
                       new Date().getDate() <=
                     1
-                      ? "Giảm giá trong ngày"
-                      : "Giảm giá đến hết " +
+                      ? "Discount during the day"
+                      : "Discount until end " +
                         new Date(game.salesUtil).toLocaleDateString()}
                   </p>
                 </div>
