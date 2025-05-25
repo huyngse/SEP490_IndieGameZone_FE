@@ -198,6 +198,7 @@ const ManageTags = () => {
           dataSource={tags}
           loading={loading}
           bordered
+          rowKey={(x) => x.name}
         />
       </div>
 

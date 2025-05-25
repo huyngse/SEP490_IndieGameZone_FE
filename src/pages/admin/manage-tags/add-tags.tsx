@@ -47,6 +47,7 @@ const AddTags = ({ open, onClose, onSuccess }: AddTagModalProps) => {
         onOk={() => form.submit()}
         confirmLoading={loading}
         destroyOnClose
+        forceRender
       >
         <Form form={form} layout="vertical" onFinish={handleSubmit} autoComplete="off">
           <Form.Item
