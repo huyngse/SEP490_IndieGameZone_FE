@@ -42,27 +42,31 @@ const AddTags = ({ open, onClose, onSuccess }: AddTagModalProps) => {
   };
 
   return (
-    <Modal
-      title="Add New Tags"
-      open={open}
-      onCancel={handleCancel}
-      onOk={() => form.submit()}
-      confirmLoading={loading}
-      destroyOnClose
-    >
-      <Form form={form} layout="vertical" onFinish={handleSubmit} autoComplete="off">
-        <Form.Item
-          label="Tag Name"
-          name="name"
-          rules={[
-            { required: true, message: "Please input tag name!" },
-            { min: 2, message: "Tag name must be at least 2 characters!" },
-          ]}
-        >
-          <Input placeholder="Enter tag name" />
-        </Form.Item>
-      </Form>
-    </Modal>
+    <div>
+      {" "}
+      <Modal
+        title="Add New Tags"
+        open={open}
+        onCancel={handleCancel}
+        onOk={() => form.submit()}
+        confirmLoading={loading}
+        destroyOnClose
+        forceRender
+      >
+        <Form form={form} layout="vertical" onFinish={handleSubmit} autoComplete="off">
+          <Form.Item
+            label="Tag Name"
+            name="name"
+            rules={[
+              { required: true, message: "Please input tag name!" },
+              { min: 2, message: "tag name must be at least 2 characters!" },
+            ]}
+          >
+            <Input placeholder="Enter tag name" />
+          </Form.Item>
+        </Form>
+      </Modal>
+    </div>
   );
 };
 

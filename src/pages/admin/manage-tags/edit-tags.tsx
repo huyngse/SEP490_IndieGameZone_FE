@@ -63,6 +63,7 @@ const EditTag = ({ open, onClose, onSuccess, tag }: EditTagModalProps) => {
       onOk={() => form.submit()}
       confirmLoading={loading}
       destroyOnClose
+      forceRender
     >
       <Form form={form} layout="vertical" onFinish={handleSubmit} autoComplete="off">
         <Form.Item
