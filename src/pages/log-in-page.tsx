@@ -25,7 +25,7 @@ const LogInPage = () => {
         </div>
       </div>
 
-      <div className="flex items-center justify-center">
+      <div className="flex items-center justify-center flex-col">
         <div className="w-full max-w-md p-4 shadow-lg rounded-xl">
           <img src={logo} alt="" className="mb-10" />
           <Form layout="vertical" autoComplete="off">
@@ -79,7 +79,7 @@ const LogInPage = () => {
           </Form>
           <div className="flex justify-between gap-4 items-center">
             <div className="border border-zinc-500 flex-1"></div>
-            <p>OR</p>
+            <p className="text-xs">OR</p>
             <div className="border border-zinc-500 flex-1"></div>
           </div>
           <Button
@@ -93,6 +93,12 @@ const LogInPage = () => {
             <img src={googleIcon} alt="" className="size-4 me-2" />
             Log in with Google
           </Button>
+        </div>
+        <div className="text-center text-xs">
+          Don't have an account?{" "}
+          <Link to={"/sign-up"} className="text-blue-400">
+            Sign up
+          </Link>
         </div>
       </div>
     </div>
