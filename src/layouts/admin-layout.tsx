@@ -1,4 +1,4 @@
-import { Avatar, Button, ConfigProvider, theme } from "antd";
+import { Avatar, Button, ConfigProvider, Dropdown, theme } from "antd";
 import React, { ReactNode, useState } from "react";
 import type { MenuProps } from "antd";
 import { Layout, Menu } from "antd";
@@ -8,10 +8,10 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { MdCategory, MdSpaceDashboard } from "react-icons/md";
 import { BiSolidUserAccount } from "react-icons/bi";
 import { LiaLanguageSolid } from "react-icons/lia";
-import { FaTags } from "react-icons/fa";
-import { CiDiscount1 } from "react-icons/ci";
+import { FaDoorOpen, FaTags, FaWindows } from "react-icons/fa";
+import { CiDiscount1, CiUser } from "react-icons/ci";
 import { GrAchievement } from "react-icons/gr";
-import { GiAbstract018, GiFlatPlatform } from "react-icons/gi";
+import { TbCancel } from "react-icons/tb";
 
 const { Header, Content, Footer, Sider } = Layout;
 
@@ -29,8 +29,23 @@ const siderStyle: React.CSSProperties = {
 const AdminLayout = ({ children }: { children: ReactNode }) => {
   const [collapsed, setCollapsed] = useState(false);
   const location = useLocation();
+  const handleLogout = () => {
+    localStorage.clear();
+    navigate("/admin/log-in");
+  };
 
   const navigate = useNavigate();
+  const menuItems: MenuProps["items"] = [
+    {
+      key: "5",
+      label: "Log Out",
+      icon: <FaDoorOpen />,
+      danger: true,
+      onClick: () => {
+        handleLogout;
+      },
+    },
+  ];
   const items: MenuProps["items"] = [
     {
       key: "/admin/dashboard",
@@ -103,7 +118,7 @@ const AdminLayout = ({ children }: { children: ReactNode }) => {
     },
     {
       key: "/admin/manage-age-restrictions",
-      icon: <GiAbstract018 />,
+      icon: <TbCancel />,
       label: "Manage Age Restrictions",
       onClick: () => {
         navigate("/admin/manage-age-restrictions");
@@ -111,7 +126,7 @@ const AdminLayout = ({ children }: { children: ReactNode }) => {
     },
     {
       key: "/admin/manage-patforms",
-      icon: <GiFlatPlatform />,
+      icon: <FaWindows />,
       label: "Manage Platforms",
       onClick: () => {
         navigate("/admin/manage-patforms");
@@ -158,27 +173,16 @@ const AdminLayout = ({ children }: { children: ReactNode }) => {
               boxShadow: "0 2px 4px rgba(0,0,0,0.1)",
             }}
           >
-            <div className="flex items-center justify-between h-full pr-2 ">
+            <div className="flex items-center justify-between h-full px-5 ">
               <Button
                 type="text"
                 icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
                 onClick={() => setCollapsed(!collapsed)}
-                style={{
-                  fontSize: "16px",
-                  width: 64,
-                  height: 64,
-                }}
               />
 
-              <Avatar
-                size={50}
-                src={
-                  <img
-                    src="https://st.quantrimang.com/photos/image/2022/01/27/Avatar-Free-Fire-ngau-12.jpg"
-                    alt="avatar"
-                  />
-                }
-              />
+              <Dropdown menu={{ items: menuItems }} trigger={["click"]}>
+                <Avatar icon={<CiUser />} className="cursor-pointer" />
+              </Dropdown>
             </div>
           </Header>
           <Content style={{ margin: "24px 16px 0", overflow: "initial" }}>
