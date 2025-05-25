@@ -1,5 +1,5 @@
 import { axiosClient } from "@/lib/api/config/axios-client";
-import { Tags } from "@/types/tag";
+import { Tag } from "@/types/tag";
 import { Form, Input, Modal, message } from "antd";
 import { useEffect, useState } from "react";
 
@@ -7,7 +7,7 @@ interface EditTagModalProps {
   open: boolean;
   onClose: () => void;
   onSuccess: () => void;
-  tag: Tags | null;
+  tag: Tag | null;
 }
 
 interface EditTagForm {

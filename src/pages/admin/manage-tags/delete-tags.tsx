@@ -1,5 +1,5 @@
 import { axiosClient } from "@/lib/api/config/axios-client";
-import { Tags } from "@/types/tag";
+import { Tag } from "@/types/tag";
 import { Modal, message } from "antd";
 import { useState } from "react";
 
@@ -8,7 +8,7 @@ interface DeleteTagModalProps {
   open: boolean;
   onClose: () => void;
   onSuccess: () => void;
-  tag: Tags | null;
+  tag: Tag | null;
 }
 
 const DeleteTag = ({ open, onClose, onSuccess, tag }: DeleteTagModalProps) => {
