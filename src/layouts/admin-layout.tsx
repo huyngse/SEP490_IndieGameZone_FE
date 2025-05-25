@@ -4,7 +4,7 @@ import type { MenuProps } from "antd";
 import { Layout, Menu } from "antd";
 import { MenuFoldOutlined, MenuUnfoldOutlined } from "@ant-design/icons";
 import logo from "@/assets/indiegamezone-logo.svg";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { MdCategory, MdSpaceDashboard } from "react-icons/md";
 import { BiSolidUserAccount } from "react-icons/bi";
 import { LiaLanguageSolid } from "react-icons/lia";
@@ -28,11 +28,12 @@ const siderStyle: React.CSSProperties = {
 
 const AdminLayout = ({ children }: { children: ReactNode }) => {
   const [collapsed, setCollapsed] = useState(false);
+  const location = useLocation();
 
   const navigate = useNavigate();
   const items: MenuProps["items"] = [
     {
-      key: "1",
+      key: "/admin/dashboard",
       icon: <MdSpaceDashboard />,
       label: "Dashboard",
       onClick: () => {
@@ -40,19 +41,19 @@ const AdminLayout = ({ children }: { children: ReactNode }) => {
       },
     },
     {
-      key: "2",
+      key: "Manage Accounts",
       icon: <BiSolidUserAccount />,
       label: "Manage Accounts",
       children: [
         {
-          key: "2-1",
+          key: "/admin/manage-users",
           label: "Manage Users",
           onClick: () => {
             navigate("/admin/manage-users");
           },
         },
         {
-          key: "2-2",
+          key: "/admin/manage-developers",
           label: "Manage Developers",
           onClick: () => {
             navigate("/admin/manage-developers");
@@ -61,7 +62,7 @@ const AdminLayout = ({ children }: { children: ReactNode }) => {
       ],
     },
     {
-      key: "3",
+      key: "/admin/manage-languages",
       icon: <LiaLanguageSolid />,
       label: "Manage Languages",
       onClick: () => {
@@ -69,58 +70,52 @@ const AdminLayout = ({ children }: { children: ReactNode }) => {
       },
     },
     {
-      key: "4",
+      key: "/admin/manage-tags",
       icon: <FaTags />,
       label: "Manage Tags",
       onClick: () => {
         navigate("/admin/manage-tags");
       },
-      
     },
-      {
-      key: "5",
+    {
+      key: "/admin/manage-categories",
       icon: <MdCategory />,
       label: "Manage Categories",
       onClick: () => {
         navigate("/admin/manage-categories");
       },
-      
     },
     {
-      key: "6",
+      key: "/admin/manage-dicounts",
       icon: <CiDiscount1 />,
       label: "Manage Dicounts",
       onClick: () => {
-        navigate("/admin/manage-categories");
+        navigate("/admin/manage-dicounts");
       },
-      
     },
     {
-      key: "7",
+      key: "/admin/manage-achivements",
       icon: <GrAchievement />,
       label: "Manage Achievements",
       onClick: () => {
-        navigate("/admin/manage-categories");
+        navigate("/admin/manage-achivements");
       },
-      
     },
-      {
-      key: "8",
+    {
+      key: "/admin/manage-age-restrictions",
       icon: <GiAbstract018 />,
       label: "Manage Age Restrictions",
       onClick: () => {
-        navigate("/admin/manage-categories");
+        navigate("/admin/manage-age-restrictions");
       },
-      
     },
-        {
-      key: "8",
+    {
+      key: "/admin/manage-patforms",
       icon: <GiFlatPlatform />,
       label: "Manage Platforms",
       onClick: () => {
-        navigate("/admin/manage-categories");
+        navigate("/admin/manage-patforms");
       },
-      
     },
   ];
   const {
@@ -138,14 +133,31 @@ const AdminLayout = ({ children }: { children: ReactNode }) => {
       }}
     >
       <Layout hasSider>
-        <Sider trigger={null} collapsible collapsed={collapsed} style={siderStyle} width={256}>
+        <Sider
+          trigger={null}
+          collapsible
+          collapsed={collapsed}
+          style={siderStyle}
+          width={256}
+        >
           <div className="p-3 my-3">
             <img src={logo} alt="indiegamezone logo" className="w-40" />
           </div>
-          <Menu theme="dark" mode="inline" defaultSelectedKeys={["4"]} items={items} />
+          <Menu
+            theme="dark"
+            mode="inline"
+            selectedKeys={[location.pathname]}
+            items={items}
+          />
         </Sider>
         <Layout>
-          <Header style={{ padding: 0, background: colorBgContainer, boxShadow: "0 2px 4px rgba(0,0,0,0.1)" }}>
+          <Header
+            style={{
+              padding: 0,
+              background: colorBgContainer,
+              boxShadow: "0 2px 4px rgba(0,0,0,0.1)",
+            }}
+          >
             <div className="flex items-center justify-between h-full pr-2 ">
               <Button
                 type="text"
@@ -169,8 +181,12 @@ const AdminLayout = ({ children }: { children: ReactNode }) => {
               />
             </div>
           </Header>
-          <Content style={{ margin: "24px 16px 0", overflow: "initial" }}>{children}</Content>
-          <Footer style={{ textAlign: "center" }}>Ant Design ©{new Date().getFullYear()} Created by Ant UED</Footer>
+          <Content style={{ margin: "24px 16px 0", overflow: "initial" }}>
+            {children}
+          </Content>
+          <Footer style={{ textAlign: "center" }}>
+            Ant Design ©{new Date().getFullYear()} Created by Ant UED
+          </Footer>
         </Layout>
       </Layout>
     </ConfigProvider>

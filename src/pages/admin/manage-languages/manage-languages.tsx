@@ -69,7 +69,7 @@ const ManageLanguages = () => {
 
   return (
     <div className="px-5">
-      <div className="">
+      <div className="mb-3">
         <div className="flex justify-between py-3">
           <h1 className="text-3xl font-bold mb-5">Manage Languages</h1>
           <Button type="primary" onClick={() => setAddModalOpen(true)}>

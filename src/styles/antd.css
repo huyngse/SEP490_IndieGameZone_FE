@@ -1,6 +1,10 @@
+.ant-table .ant-table-container .ant-table-content table tr.ant-table-row .ant-table-cell {
+  padding-block: 10px;
+  border-bottom: 1px solid rgb(217, 217, 217);
+}
+
 .ant-table .ant-table-container .ant-table-content table thead.ant-table-thead .ant-table-cell {
-  background-color: #FF6600;
-  color: white;
+  border-bottom: 1px solid rgb(199, 199, 199);
 }
 
 .ant-table .ant-table-container {
