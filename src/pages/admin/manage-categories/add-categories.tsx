@@ -59,7 +59,7 @@ const AddCategories = ({ open, onClose, onSuccess }: AddCategoryModalProps) => {
             { min: 2, message: "Category name must be at least 2 characters!" },
           ]}
         >
-          <Input placeholder="Enter tag Category" />
+          <Input placeholder="Enter  Category" />
         </Form.Item>
       </Form>
     </Modal>

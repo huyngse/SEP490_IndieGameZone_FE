@@ -129,7 +129,7 @@ const AdminLayout = ({ children }: { children: ReactNode }) => {
       icon: <FaWindows />,
       label: "Manage Platforms",
       onClick: () => {
-        navigate("/admin/manage-patforms");
+        navigate("/admin/manage-platforms");
       },
     },
   ];

@@ -1,34 +1,34 @@
-import { deleteCategory } from "@/lib/api/category-api";
-import { Category } from "@/types/category";
+import { deletePlatform } from "@/lib/api/platform-api";
+import { Platform } from "@/types/platform";
 import { Modal, message } from "antd";
 import { useState } from "react";
 
-interface DeleteCategoryModalProps {
+interface DeletePlatformModalProps {
   open: boolean;
   onClose: () => void;
   onSuccess: () => void;
-  category: Category | null;
+  platform: Platform | null;
 }
 
-const DeleteCategory = ({ open, onClose, onSuccess, category }: DeleteCategoryModalProps) => {
+const DeletePlatform = ({ open, onClose, onSuccess, platform }: DeletePlatformModalProps) => {
   const [loading, setLoading] = useState(false);
 
   const handleDelete = async () => {
-    if (!category) return;
+    if (!platform) return;
     
     try {
       setLoading(true);
-      const result = await deleteCategory(category.id);
+      const result = await deletePlatform(platform.id);
       
       if (result.success) {
-        message.success("Category deleted successfully!");
+        message.success("Platform deleted successfully!");
         onClose();
         onSuccess();
       } else {
-        message.error(result.error || "Failed to delete category");
+        message.error(result.error || "Failed to delete platform");
       }
     } catch (error) {
-      message.error("Failed to delete category");
+      message.error("Failed to delete platform");
     } finally {
       setLoading(false);
     }
@@ -40,7 +40,7 @@ const DeleteCategory = ({ open, onClose, onSuccess, category }: DeleteCategoryMo
 
   return (
     <Modal
-      title="Delete Category"
+      title="Delete Platform"
       open={open}
       onCancel={handleCancel}
       onOk={handleDelete}
@@ -50,7 +50,7 @@ const DeleteCategory = ({ open, onClose, onSuccess, category }: DeleteCategoryMo
       okButtonProps={{ danger: true }}
     >
       <p>
-        Are you sure you want to delete the category "{category?.name}"?
+        Are you sure you want to delete the platform "{platform?.name}"?
       </p>
       <p style={{ color: '#ff4d4f', fontSize: '14px' }}>
         This action cannot be undone.
@@ -59,4 +59,4 @@ const DeleteCategory = ({ open, onClose, onSuccess, category }: DeleteCategoryMo
   );
 };
 
-export default DeleteCategory;
+export default DeletePlatform;
