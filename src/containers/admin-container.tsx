@@ -5,7 +5,7 @@ import ManageCategories from "@/pages/admin/manage-categories/manage-categories"
 import ManageLanguages from "@/pages/admin/manage-languages/manage-languages";
 import ManagePlatform from "@/pages/admin/manage-platform/manage-platform";
 import ManageTags from "@/pages/admin/manage-tags/manage-tags";
-import AdminNotFoundPage from "@/pages/errors/admin-not-found-page";
+import AdminNotFoundPage from "@/pages/errors/simple-not-found-page";
 import { Route, Routes } from "react-router-dom";
 
 const AdminContainer = () => {

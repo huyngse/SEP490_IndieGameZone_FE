@@ -38,7 +38,7 @@ const FeaturedGameCard = ({ game }: any) => {
                 <h2 className="font-bold text-2xl">{game.name}</h2>
               </Link>
               <p className="font-semibold">
-                {game.price == 0 ? "Miễn Phí" : formatCurrencyVND(game.price)}
+                {game.price == 0 ? "Free" : formatCurrencyVND(game.price)}
               </p>
             </div>
             <div className="flex gap-2 text-sm mt-1">

@@ -2,7 +2,7 @@ import { Link, useNavigate } from "react-router-dom";
 import MaxWidthWrapper from "./max-width-wrapper";
 import logo from "@/assets/videogame.png";
 import { Button, GetProp, Menu, MenuProps, Popover } from "antd";
-import { IoMdMore } from "react-icons/io";
+import { IoIosNotifications, IoMdMore } from "react-icons/io";
 import {
   FaBook,
   FaFacebookSquare,
@@ -10,8 +10,8 @@ import {
   FaQuestionCircle,
   FaTwitter,
 } from "react-icons/fa";
-import { useCallback } from "react";
 import ProfileMenu from "./profile-menu";
+import { MdOutlineInsertChart } from "react-icons/md";
 
 type MenuItem = GetProp<MenuProps, "items">[number];
 
@@ -61,13 +61,6 @@ const popOverContent = (
 
 const Navbar = () => {
   const navigate = useNavigate();
-  const goToLogIn = useCallback(() => {
-    navigate("/log-in");
-  }, []);
-  const goToSignUp = useCallback(() => {
-    navigate("/sign-up");
-  }, []);
-
   return (
     <div className="bg-zinc-900">
       <MaxWidthWrapper className="flex justify-between p-5">
@@ -89,11 +82,21 @@ const Navbar = () => {
           </Popover>
         </div>
         <div className="flex justify-center items-center gap-3">
-          <Button type="primary" onClick={goToLogIn}>
-            Đăng Nhập
+          <Button
+            onClick={() => {
+              navigate("/dev/manage-games");
+            }}
+            icon={<MdOutlineInsertChart />}
+          >
+            Dashboard
           </Button>
-          <Button onClick={goToSignUp}>Đăng Ký</Button>
+          <Button shape="circle" icon={<IoIosNotifications />}></Button>
+
           <ProfileMenu />
+          <Button type="primary" onClick={() => navigate("/log-in")}>
+            Sign In
+          </Button>
+          <Button onClick={() => navigate("/sign-up")}>Sign Up</Button>
         </div>
       </MaxWidthWrapper>
     </div>
