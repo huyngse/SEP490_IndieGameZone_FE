@@ -13,7 +13,7 @@ const SignUpPage = () => {
   return (
     <div className="h-screen bg-zinc-800">
       <div
-        className="bg-cover bg-center relative overflow-hidden drop-shadow-xl flex justify-center items-center min-h-screen py-10"
+        className="bg-cover bg-center relative overflow-hidden drop-shadow-xl flex justify-center items-center min-h-screen"
         style={{
           backgroundImage: `url(${background})`,
         }}

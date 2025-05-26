@@ -10,7 +10,7 @@ export const handleApiError = (error: any): ApiResponse => {
     const errorMessage = error.response?.data.message || error?.message || 'An unexpected error occurred.';
     return { error: errorMessage, data: null, success: false };
   } catch (err) {
-    return { error: 'Đã xảy ra lỗi không mong muốn.', data: null, success: false };
+    return { error: 'An unexpected error occurred.', data: null, success: false };
   }
 };
 export const getAllTags = async () => {

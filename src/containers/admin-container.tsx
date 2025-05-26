@@ -1,5 +1,6 @@
 import AdminLayout from "@/layouts/admin-layout";
 import DashBoardPage from "@/pages/admin/dashboard-page";
+import ManageAgeRestrictionPage from "@/pages/admin/manage-age-restrictions/manage-age-restrictions-page";
 import ManageCategories from "@/pages/admin/manage-categories/manage-categories";
 import ManageLanguages from "@/pages/admin/manage-languages/manage-languages";
 import ManageTags from "@/pages/admin/manage-tags/manage-tags";
@@ -16,6 +17,7 @@ const AdminContainer = () => {
         <Route path="/manage-languages" element={<ManageLanguages />} />
         <Route path="/manage-tags" element={<ManageTags />} />
         <Route path="/manage-categories" element={<ManageCategories />} />
+        <Route path="/manage-age-restrictions" element={<ManageAgeRestrictionPage />} />
       </Routes>
     </AdminLayout>
   );
