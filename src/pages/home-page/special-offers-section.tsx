@@ -5,6 +5,7 @@ import game6CoverImage from "@/assets/mock/game-6-cover-image.jpg";
 import game7CoverImage from "@/assets/mock/game-7-cover-image.jpg";
 import { formatCurrencyVND } from "@/lib/currency";
 import { Link } from "react-router-dom";
+import { formatDate } from "@/lib/date";
 
 const today = new Date();
 const salesDate1 = new Date(
@@ -92,11 +93,10 @@ const SpecialOffersSection = () => {
                   <h3 className="font-semibold">{game.name}</h3>
                   <p className="text-xs text-gray-400">
                     {new Date(game.salesUtil).getDate() -
-                      new Date().getDate() <=
-                    1
-                      ? "Discount during the day"
-                      : "Discount until end " +
-                        new Date(game.salesUtil).toLocaleDateString()}
+                      new Date().getDate() >= 1
+                      ? "Today's deal!"
+                      : "Offer ends " +
+                        formatDate(new Date(game.salesUtil))}
                   </p>
                 </div>
                 <div className="text-end">
