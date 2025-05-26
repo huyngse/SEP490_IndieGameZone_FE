@@ -1,5 +1,5 @@
 import MaxWidthWrapper from "@/components/max-width-wrapper";
-import { Menu, MenuProps, theme } from "antd";
+import { Menu, MenuProps } from "antd";
 import { ReactNode } from "react";
 import { FaChartLine, FaGamepad, FaTags } from "react-icons/fa";
 import { LuPackage } from "react-icons/lu";
@@ -53,22 +53,18 @@ const DeveloperDashboardLayout = ({ children }: { children: ReactNode }) => {
       },
     },
   ];
-  const {
-    token: { colorBgContainer },
-  } = theme.useToken();
-  return (
-    <div>
-      <div
-        style={{ background: colorBgContainer }}
-        className="border-b border-gray-700"
-      >
-        <MaxWidthWrapper>
-          <Menu mode="horizontal" items={items} selectedKeys={[location.pathname]}/>
-        </MaxWidthWrapper>
-      </div>
 
-      <div>{children}</div>
-    </div>
+  return (
+    <MaxWidthWrapper className="py-5">
+      <div className="bg-zinc-900/50 rounded border overflow-hidden border-zinc-800">
+        <Menu
+          mode="horizontal"
+          items={items}
+          selectedKeys={[location.pathname]}
+        />
+        <div>{children}</div>
+      </div>
+    </MaxWidthWrapper>
   );
 };
 
