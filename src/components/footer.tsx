@@ -15,9 +15,9 @@ const Footer = () => {
           </Link>
         </div>
         <div className="flex gap-1 text-xs">
-          <Link to={"/"}>Hổ trợ</Link>•<Link to={"/"}>Điều khoản sử dụng</Link>•
-          <Link to={"/"}>Chính sách bảo mật </Link>•
-          <Link to={"/"}>Chính sách Cookie</Link>
+          <Link to={"/"}>Support</Link>•<Link to={"/"}>Terms of use</Link>•
+          <Link to={"/"}>Privacy policy </Link>•
+          <Link to={"/"}>Cookie Policy</Link>
         </div>
         <div className="text-xs text-gray-400">Copyright © 2025 GSU25SE12 Team</div>
       </MaxWidthWrapper>

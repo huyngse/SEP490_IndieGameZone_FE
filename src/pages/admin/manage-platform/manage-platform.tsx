@@ -1,12 +1,4 @@
-import {
-  Button,
-  Input,
-  InputRef,
-  Space,
-  Table,
-  TableColumnType,
-  TableProps,
-} from "antd";
+import { Button, Input, InputRef, Space, Table, TableColumnType, TableProps } from "antd";
 import { useEffect, useRef, useState } from "react";
 import { CiEdit } from "react-icons/ci";
 import { MdOutlineDeleteForever } from "react-icons/md";
@@ -14,42 +6,39 @@ import { MdOutlineDeleteForever } from "react-icons/md";
 import { FilterDropdownProps } from "antd/es/table/interface";
 import Highlighter from "react-highlight-words";
 import { FaSearch } from "react-icons/fa";
-import { Category } from "@/types/category";
-import AddCategories from "./add-categories";
-import EditCategory from "./edit-categories";
-import DeleteCategory from "./delete-categories";
-import useCategoryStore from "@/store/use-category-store";
 
-type DataIndex = keyof Category;
-const ManageCategories = () => {
+import { Platform } from "@/types/platform";
+import usePlatformStore from "@/store/use-platform-store";
+import AddPlatform from "./add-platform";
+import EditPlatform from "./edit-platform";
+import DeletePlatform from "./delete-platform";
+
+type DataIndex = keyof Platform;
+const ManagePlatforms = () => {
   const searchInput = useRef<InputRef>(null);
-  const { loading, fetchCategories, categories } = useCategoryStore();
+  const { loading, fetchPlatforms, platforms } = usePlatformStore();
   const [addModalOpen, setAddModalOpen] = useState(false);
   const [editModalOpen, setEditModalOpen] = useState(false);
   const [deleteModalOpen, setDeleteModalOpen] = useState(false);
-  const [selectedCategory, setSelectedCategory] = useState<Category | null>(null);
+  const [selectedPlatform, setSelectedPlatform] = useState<Platform | null>(null);
   const [searchText, setSearchText] = useState("");
   const [searchedColumn, setSearchedColumn] = useState("");
 
-  const handleEdit = (record: Category) => {
-    setSelectedCategory(record);
+  const handleEdit = (record: Platform) => {
+    setSelectedPlatform(record);
     setEditModalOpen(true);
   };
 
-  const handleDelete = (record: Category) => {
-    setSelectedCategory(record);
+  const handleDelete = (record: Platform) => {
+    setSelectedPlatform(record);
     setDeleteModalOpen(true);
   };
 
   const handleRefresh = () => {
-    fetchCategories();
+    fetchPlatforms();
   };
 
-  const handleSearch = (
-    selectedKeys: string[],
-    confirm: FilterDropdownProps["confirm"],
-    dataIndex: DataIndex
-  ) => {
+  const handleSearch = (selectedKeys: string[], confirm: FilterDropdownProps["confirm"], dataIndex: DataIndex) => {
     confirm();
     setSearchText(selectedKeys[0]);
     setSearchedColumn(dataIndex);
@@ -60,46 +49,28 @@ const ManageCategories = () => {
     setSearchText("");
   };
 
-  const getColumnSearchProps = (
-    dataIndex: DataIndex
-  ): TableColumnType<Category> => ({
-    filterDropdown: ({
-      setSelectedKeys,
-      selectedKeys,
-      confirm,
-      clearFilters,
-      close,
-    }) => (
+  const getColumnSearchProps = (dataIndex: DataIndex): TableColumnType<Platform> => ({
+    filterDropdown: ({ setSelectedKeys, selectedKeys, confirm, clearFilters, close }) => (
       <div style={{ padding: 8 }} onKeyDown={(e) => e.stopPropagation()}>
         <Input
           ref={searchInput}
           placeholder={`Search ${dataIndex}`}
           value={selectedKeys[0]}
-          onChange={(e) =>
-            setSelectedKeys(e.target.value ? [e.target.value] : [])
-          }
-          onPressEnter={() =>
-            handleSearch(selectedKeys as string[], confirm, dataIndex)
-          }
+          onChange={(e) => setSelectedKeys(e.target.value ? [e.target.value] : [])}
+          onPressEnter={() => handleSearch(selectedKeys as string[], confirm, dataIndex)}
           style={{ marginBottom: 8, display: "block" }}
         />
         <Space>
           <Button
             type="primary"
-            onClick={() =>
-              handleSearch(selectedKeys as string[], confirm, dataIndex)
-            }
+            onClick={() => handleSearch(selectedKeys as string[], confirm, dataIndex)}
             icon={<FaSearch />}
             size="small"
             style={{ width: 90 }}
           >
             Search
           </Button>
-          <Button
-            onClick={() => clearFilters && handleReset(clearFilters)}
-            size="small"
-            style={{ width: 90 }}
-          >
+          <Button onClick={() => clearFilters && handleReset(clearFilters)} size="small" style={{ width: 90 }}>
             Reset
           </Button>
           <Button
@@ -125,12 +96,7 @@ const ManageCategories = () => {
         </Space>
       </div>
     ),
-    filterIcon: (filtered: boolean) => (
-      <FaSearch
-        style={{ color: filtered ? "#FF6600" : undefined }}
-        className="w-5"
-      />
-    ),
+    filterIcon: (filtered: boolean) => <FaSearch style={{ color: filtered ? "#FF6600" : undefined }} className="w-5" />,
     onFilter: (value, record) =>
       record[dataIndex]
         .toString()
@@ -156,9 +122,9 @@ const ManageCategories = () => {
       ),
   });
 
-  const columns: TableProps<Category>["columns"] = [
+  const columns: TableProps<Platform>["columns"] = [
     {
-      title: "Category Name",
+      title: "Platform Name",
       dataIndex: "name",
       key: "name",
       sorter: (a, b) => a.name.localeCompare(b.name),
@@ -182,53 +148,44 @@ const ManageCategories = () => {
   ];
 
   useEffect(() => {
-    fetchCategories();
+    fetchPlatforms();
   }, []);
 
   return (
     <div className="px-5">
       <div className="mb-3 flex justify-between py-3">
-        <h1 className="text-3xl font-bold mb-5">Manage Categories</h1>
+        <h1 className="text-3xl font-bold mb-5">Manage Platforms</h1>
         <Button type="primary" onClick={() => setAddModalOpen(true)}>
-          Add New Category
+          Add New Platform
         </Button>
       </div>
       <div className="">
-        <Table<Category>
-          columns={columns}
-          dataSource={categories}
-          loading={loading}
-          bordered
-        />
+        <Table<Platform> columns={columns} dataSource={platforms} loading={loading} bordered />
       </div>
 
-      <AddCategories
-        open={addModalOpen}
-        onClose={() => setAddModalOpen(false)}
-        onSuccess={handleRefresh}
-      />
+      <AddPlatform open={addModalOpen} onClose={() => setAddModalOpen(false)} onSuccess={handleRefresh} />
 
-      <EditCategory
+      <EditPlatform
         open={editModalOpen}
         onClose={() => {
           setEditModalOpen(false);
-          setSelectedCategory(null);
+          setSelectedPlatform(null);
         }}
         onSuccess={handleRefresh}
-        category={selectedCategory}
+        platform={selectedPlatform}
       />
 
-      <DeleteCategory
+      <DeletePlatform
         open={deleteModalOpen}
         onClose={() => {
           setDeleteModalOpen(false);
-          setSelectedCategory(null);
+          setSelectedPlatform(null);
         }}
         onSuccess={handleRefresh}
-        category={selectedCategory}
+        platform={selectedPlatform}
       />
     </div>
   );
 };
 
-export default ManageCategories;
+export default ManagePlatforms;

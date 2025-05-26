@@ -17,68 +17,68 @@ const HomePage = () => {
     <MaxWidthWrapper>
       <div className="flex justify-center items-center gap-5 p-5 font-bold text-xl">
         <Link to={"/"} className="hover-underline">
-          Khám Phá
+          Discover
         </Link>
         <Link to={"/search"} className="hover-underline text-gray-500">
-          Tìm Kiếm
+          Search
         </Link>
         <Link to={"/news"} className="hover-underline text-gray-500">
-          Tin Tức
+          News
         </Link>
       </div>
       <FeaturedGameSection />
       <SpecialOffersSection />
       <section className="pb-9">
-        <h2 className="text-2xl font-bold text-center my-5">Tìm Kiếm Game</h2>
+        <h2 className="text-2xl font-bold text-center my-5">Games Search</h2>
         <div className="grid grid-cols-4 gap-3">
           <Link
             to={"/search/latest"}
             className="cursor-box btn-1 font-bold drop-shadow relative"
           >
             <IoTimer className="absolute size-24 -right-7 text-zinc-500 -z-10" />
-            Mới Phát Hành
+            Newly Released
           </Link>
           <Link
             to={"/search/sales"}
             className="cursor-box btn-1 font-bold drop-shadow relative"
           >
             <MdAttachMoney className="absolute size-24 -right-7 text-zinc-500 -z-10" />
-            Ưu Đãi
+            Special Offers
           </Link>
           <Link
             to={"/search?maxPrice=0"}
             className="cursor-box btn-1 font-bold drop-shadow relative"
           >
             <MdMoneyOff className="absolute size-24 -right-7 text-zinc-500 -z-10" />
-            Miễn Phí
+             Free Games
           </Link>
           <Link
             to={"/tags"}
             className="cursor-box btn-1 font-bold drop-shadow relative"
           >
             <FaTags className="absolute size-24 -right-7 text-zinc-500 -z-10" />
-            Bằng Tags
+            Browse Tags
           </Link>
         </div>
       </section>
       <PersonalizedSection />
       <section className="pb-20">
         <h2 className="text-2xl font-bold text-center my-5">
-          Khám Phá Theo Thể Loại
+          Explore by Category
         </h2>
         <div className="grid grid-cols-4 gap-3">
           <GenreCard
-            title="Thế giới mở"
+            title="Open world"
             to="/search?genre=1"
             background={genre1}
           />
           <GenreCard
-            title="Phiêu Lưu"
+            title="Adventure"
             to="/search?genre=2"
             background={genre2}
           />
           <GenreCard
-            title="Hành Động"
+            title="Action RPG"
             to="/search?genre=3"
             background={genre3}
           />

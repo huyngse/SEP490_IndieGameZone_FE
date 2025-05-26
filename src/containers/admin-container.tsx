@@ -3,6 +3,7 @@ import DashBoardPage from "@/pages/admin/dashboard-page";
 import ManageAgeRestrictionPage from "@/pages/admin/manage-age-restrictions/manage-age-restrictions-page";
 import ManageCategories from "@/pages/admin/manage-categories/manage-categories";
 import ManageLanguages from "@/pages/admin/manage-languages/manage-languages";
+import ManagePlatform from "@/pages/admin/manage-platform/manage-platform";
 import ManageTags from "@/pages/admin/manage-tags/manage-tags";
 import AdminNotFoundPage from "@/pages/errors/admin-not-found-page";
 import { Route, Routes } from "react-router-dom";
@@ -18,6 +19,7 @@ const AdminContainer = () => {
         <Route path="/manage-tags" element={<ManageTags />} />
         <Route path="/manage-categories" element={<ManageCategories />} />
         <Route path="/manage-age-restrictions" element={<ManageAgeRestrictionPage />} />
+        <Route path="/manage-platforms" element={<ManagePlatform />} />
       </Routes>
     </AdminLayout>
   );
