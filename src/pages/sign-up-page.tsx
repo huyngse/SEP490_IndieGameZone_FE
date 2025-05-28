@@ -85,15 +85,15 @@ const SignUpPage = () => {
               initialValues={{ role: 'Player' }}
             >
               <Form.Item
-                label={<span className="font-bold">User Name</span>}
+                label={<span className="font-bold">Full Name</span>}
                 name="userName"
                 rules={[
-                  { required: true, message: "Please enter your user name" },
-                  { min: 3, message: "User name must be at least 3 characters" }
+                  { required: true, message: "Please enter your Full name" },
+                  { min: 3, message: "Full name must be at least 3 characters" }
                 ]}
                 style={{ marginBottom: 10 }}
               >
-                <Input placeholder="Enter your user name" style={{ paddingBlock: 10 }} />
+                <Input placeholder="Enter your Full name" style={{ paddingBlock: 10 }} />
               </Form.Item>
 
               <Form.Item
