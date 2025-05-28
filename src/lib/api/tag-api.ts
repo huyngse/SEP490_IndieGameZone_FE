@@ -24,7 +24,7 @@ export const getAllTags = async () => {
 
 export const createTag = async (tagData: { name: string }) => {
     try {
-        const { data } = await axiosClient.post('/api/Tags', tagData);
+        const { data } = await axiosClient.post('/api/tags', tagData);
         return { error: null, data: data, success: true };
     } catch (error) {
         return handleApiError(error);
@@ -33,7 +33,7 @@ export const createTag = async (tagData: { name: string }) => {
 
 export const updateTag = async (tagId: string | number, tagData: { name: string }) => {
     try {
-        const { data } = await axiosClient.put(`/api/Tags/${tagId}`, tagData);
+        const { data } = await axiosClient.put(`/api/tags/${tagId}`, tagData);
         return { error: null, data: data, success: true };
     } catch (error) {
         return handleApiError(error);
@@ -42,7 +42,7 @@ export const updateTag = async (tagId: string | number, tagData: { name: string 
 
 export const deleteTag = async (tagId: string | number) => {
     try {
-        const { data } = await axiosClient.delete(`/api/Tags/${tagId}`);
+        const { data } = await axiosClient.delete(`/api/tags/${tagId}`);
         return { error: null, data: data, success: true };
     } catch (error) {
         return handleApiError(error);
@@ -51,7 +51,7 @@ export const deleteTag = async (tagId: string | number) => {
 
 export const getTagById = async (tagId: string | number) => {
     try {
-        const { data } = await axiosClient.get(`/api/Tags/${tagId}`);
+        const { data } = await axiosClient.get(`/api/tags/${tagId}`);
         return { error: null, data: data, success: true };
     } catch (error) {
         return handleApiError(error);

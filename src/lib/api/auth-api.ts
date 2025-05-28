@@ -16,30 +16,50 @@ export const handleApiError = (error: any): ApiResponse => {
 };
 
 type RegisterRequest = {
-    email: string;           
-    userName: string;       
-    birthday: string;        
-    password: string;       
-    confirmPassword: string; 
-    role: string;          
+  email: string;
+  userName: string;
+  birthday: string;
+  password: string;
+  confirmPassword: string;
+  role: string;
 }
 
 export const register = async (request: RegisterRequest) => {
-    try {
-        const result = await axiosClient.post(`/api/Authentications/register`, request);
-        return { error: null, data: result.data, success: true };
-    } catch (error: any) {
-        return handleApiError(error);
-    }
+  try {
+    const result = await axiosClient.post(`/api/authentications/register`, request);
+    return { error: null, data: result.data, success: true };
+  } catch (error: any) {
+    return handleApiError(error);
+  }
 }
 
 export const prepareRegisterData = (formValues: any) => {
-    return {
-        email: formValues.email,
-        userName: formValues.userName, 
-        birthday: formValues.birthday?.format('YYYY-MM-DD') || formValues.birthday,
-        password: formValues.password,
-        confirmPassword: formValues.confirmPassword || formValues['Repeat password'],
-        role: formValues.Role || formValues.role || 'Player'
-    };
+  return {
+    email: formValues.email,
+    userName: formValues.userName,
+    birthday: formValues.birthday?.format('YYYY-MM-DD') || formValues.birthday,
+    password: formValues.password,
+    confirmPassword: formValues.confirmPassword || formValues['Repeat password'],
+    role: formValues.Role || formValues.role || 'Player'
+  };
 };
+
+export const verifyEmail = async (token: string, userId: string) => {
+  try {
+    const result = await axiosClient.get(`/api/authentications/email-confirm?token=${token}&userId=${userId}`);
+    return { error: null, data: result.data, success: true };
+  } catch (error: any) {
+    return handleApiError(error);
+  }
+}
+
+export const resendVerificationemail = async (email: string) => {
+  try {
+    const result = await axiosClient.post(`/api/authentications/resend-confirmation`, {
+      email: email
+    });
+    return { error: null, data: result.data, success: true };
+  } catch (error: any) {
+    return handleApiError(error);
+  }
+}
