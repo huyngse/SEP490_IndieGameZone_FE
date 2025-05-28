@@ -12,7 +12,7 @@ export const handleApiError = (error: any) => {
 
 export const getAllAgeRestrictions = async () => {
     try {
-        const { data } = await axiosClient.get(`/api/AgeRestrictions`);
+        const { data } = await axiosClient.get(`/api/age-restrictions`);
         return { error: null, data: data, success: true };
     } catch (error) {
         return handleApiError(error);
@@ -26,7 +26,7 @@ type AddAgeRestrictionRequest = {
 
 export const addAgeRestriction = async (request: AddAgeRestrictionRequest) => {
     try {
-        const { data } = await axiosClient.post(`/api/AgeRestrictions`, request);
+        const { data } = await axiosClient.post(`/api/age-restrictions`, request);
         return { error: null, data: data, success: true };
     } catch (error) {
         return handleApiError(error);
@@ -40,7 +40,7 @@ type UpdateAgeRestrictionRequest = {
 
 export const updateAgeRestriction = async (id: string, request: UpdateAgeRestrictionRequest) => {
     try {
-        const { data } = await axiosClient.put(`/api/AgeRestrictions/${id}`, request);
+        const { data } = await axiosClient.put(`/api/age-restrictions/${id}`, request);
         return { error: null, data: data, success: true };
     } catch (error) {
         return handleApiError(error);
@@ -49,7 +49,7 @@ export const updateAgeRestriction = async (id: string, request: UpdateAgeRestric
 
 export const deleteAgeRestriction = async (id: string) => {
     try {
-        const { data } = await axiosClient.delete(`/api/AgeRestrictions/${id}`);
+        const { data } = await axiosClient.delete(`/api/age-restrictions/${id}`);
         return { error: null, data: data, success: true };
     } catch (error) {
         return handleApiError(error);

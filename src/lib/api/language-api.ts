@@ -12,7 +12,7 @@ export const handleApiError = (error: any) => {
 
 export const getAllLanguages = async () => {
     try {
-        const { data } = await axiosClient.get(`/api/Languages`);
+        const { data } = await axiosClient.get(`/api/languages`);
         return { error: null, data: data, success: true };
     } catch (error) {
         return handleApiError(error);
