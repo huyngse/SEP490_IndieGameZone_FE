@@ -1,7 +1,7 @@
 import DeveloperDashboardLayout from "@/layouts/developer-dashboard-layout";
 import DevDashBoardPage from "@/pages/developer/dev-dashboard-page";
 import DevManageGamesPage from "@/pages/developer/dev-manage-games-page";
-import DevUploadGamePage from "@/pages/developer/dev-upload-game-page";
+import DevUploadGamePage from "@/pages/developer/upload-game/dev-upload-game-page";
 import NotFoundPage from "@/pages/errors/simple-not-found-page";
 import { Route, Routes } from "react-router-dom";
 
