@@ -12,6 +12,7 @@ import {
 } from "react-icons/fa";
 import ProfileMenu from "./profile-menu";
 import { MdOutlineInsertChart } from "react-icons/md";
+import useProfileStore from "@/store/use-profile-store";
 
 type MenuItem = GetProp<MenuProps, "items">[number];
 
@@ -61,6 +62,7 @@ const popOverContent = (
 
 const Navbar = () => {
   const navigate = useNavigate();
+  const { profile } = useProfileStore();
   return (
     <div className="bg-zinc-900">
       <MaxWidthWrapper className="flex justify-between p-5">
@@ -82,21 +84,32 @@ const Navbar = () => {
           </Popover>
         </div>
         <div className="flex justify-center items-center gap-3">
-          <Button
-            onClick={() => {
-              navigate("/dev/manage-games");
-            }}
-            icon={<MdOutlineInsertChart />}
-          >
-            Dashboard
-          </Button>
-          <Button shape="circle" icon={<IoIosNotifications />}></Button>
+          {profile?.role.name == "Developer" && (
+            <Button
+              onClick={() => {
+                navigate("/dev/manage-games");
+              }}
+              icon={<MdOutlineInsertChart />}
+            >
+              Dashboard
+            </Button>
+          )}
 
-          <ProfileMenu />
-          <Button type="primary" onClick={() => navigate("/log-in")}>
-            Sign In
-          </Button>
-          <Button onClick={() => navigate("/sign-up")}>Sign Up</Button>
+          {profile && (
+            <>
+              <Button shape="circle" icon={<IoIosNotifications />}></Button>
+              <ProfileMenu />
+            </>
+          )}
+
+          {!profile && (
+            <>
+              <Button type="primary" onClick={() => navigate("/log-in")}>
+                Sign In
+              </Button>
+              <Button onClick={() => navigate("/sign-up")}>Sign Up</Button>
+            </>
+          )}
         </div>
       </MaxWidthWrapper>
     </div>

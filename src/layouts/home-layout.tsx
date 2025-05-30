@@ -8,6 +8,7 @@ const HomeLayout = ({ children }: { children: ReactNode }) => {
   useEffect(() => {
     document.body.classList.add("dark");
   }, []);
+ 
   return (
     <ConfigProvider
       theme={{

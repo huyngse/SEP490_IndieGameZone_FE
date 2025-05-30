@@ -1,9 +1,45 @@
-import { Form, Input, Button } from "antd";
+import { Form, Input, Button, FormProps } from "antd";
 import logo from "@/assets/indiegamezone-logo.svg";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import googleIcon from "@/assets/google_icon.png";
+import { useState } from "react";
+import { login } from "@/lib/api/auth-api";
+import toast from "react-hot-toast";
+type FieldType = {
+  email: string;
+  password: string;
+};
 
 const LoginAdminPage = () => {
+  const [form] = Form.useForm();
+  const [isSumitting, setIsSumitting] = useState(false);
+  const navigate = useNavigate();
+  const [error, setError] = useState("");
+
+  const onFinish: FormProps<FieldType>["onFinish"] = async (values) => {
+    setIsSumitting(true);
+    setError("");
+    const result = await login({
+      userNameOrEmail: values.email,
+      password: values.password,
+    });
+    setIsSumitting(false);
+    if (result.error) {
+      if (result.data) {
+        toast.error(result.data.detail);
+        setError(result.data.detail);
+      } else {
+        toast.error(result.error);
+      }
+    } else {
+      localStorage.setItem("accessToken", result.data.accessToken);
+      localStorage.setItem("refreshToken", result.data.refreshToken);
+      toast.success("Login successfully");
+      setTimeout(() => {
+        navigate("/");
+      }, 1000);
+    }
+  };
   return (
     <div
       className="min-h-screen bg-cover bg-center bg-no-repeat "
@@ -23,7 +59,9 @@ const LoginAdminPage = () => {
             <Link to={"/"} className="">
               <img src={logo} alt="" className="w-80" />
             </Link>
-            <p className="font-bold absolute right-0 -bottom-5">Admin and Moderator</p>
+            <p className="font-bold absolute right-0 -bottom-5">
+              Admin and Moderator
+            </p>
           </div>
           <p className="text-lg font-mono text-center mt-6 bg-zinc-800/50">
             This is the login page for Admin and Moderator only.
@@ -35,7 +73,12 @@ const LoginAdminPage = () => {
             <div className="text-center mb-6 text-5xl font-bold font-mono">
               Login
             </div>
-            <Form layout="vertical" autoComplete="off">
+            <Form
+              layout="vertical"
+              autoComplete="off"
+              form={form}
+              onFinish={onFinish}
+            >
               <Form.Item
                 label={<span className="font-bold">Email</span>}
                 name="email"
@@ -81,9 +124,11 @@ const LoginAdminPage = () => {
                       fontWeight: "bold",
                       textTransform: "uppercase",
                     }}
+                    loading={isSumitting}
                   >
                     Log In
                   </Button>
+                  {error && <p className="text-red-400">{error}</p>}
                 </Form.Item>
               </div>
             </Form>
