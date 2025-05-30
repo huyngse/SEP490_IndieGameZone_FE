@@ -12,8 +12,10 @@ import { FaDoorOpen, FaTags, FaUser, FaWindows } from "react-icons/fa";
 import { CiDiscount1, CiUser } from "react-icons/ci";
 import { GrAchievement } from "react-icons/gr";
 import { TbCancel } from "react-icons/tb";
+import useProfileStore from "@/store/use-profile-store";
+import Loader from "@/components/loader";
 
-const { Header, Content, Footer, Sider } = Layout;
+const { Content, Footer, Sider } = Layout;
 
 const siderStyle: React.CSSProperties = {
   overflow: "auto",
@@ -28,9 +30,11 @@ const siderStyle: React.CSSProperties = {
 
 const AdminLayout = ({ children }: { children: ReactNode }) => {
   const [collapsed, setCollapsed] = useState(false);
+  const { logout, profile } = useProfileStore();
   const location = useLocation();
+  const { loading } = useProfileStore();
   const handleLogout = () => {
-    localStorage.clear();
+    logout();
     navigate("/admin/log-in");
   };
 
@@ -42,7 +46,7 @@ const AdminLayout = ({ children }: { children: ReactNode }) => {
       icon: <FaDoorOpen />,
       danger: true,
       onClick: () => {
-        handleLogout;
+        handleLogout();
       },
     },
   ];
@@ -120,9 +124,26 @@ const AdminLayout = ({ children }: { children: ReactNode }) => {
       },
     },
   ];
+
   const {
     token: { colorBgContainer },
   } = theme.useToken();
+  if (loading) {
+    return (
+      <ConfigProvider
+        theme={{
+          algorithm: theme.defaultAlgorithm,
+          token: {
+            colorPrimary: "#FF6600",
+            borderRadius: 2,
+            colorLink: "#FFF",
+          },
+        }}
+      >
+        <Loader theme="light" />
+      </ConfigProvider>
+    );
+  }
   return (
     <ConfigProvider
       theme={{
@@ -153,25 +174,29 @@ const AdminLayout = ({ children }: { children: ReactNode }) => {
           />
         </Sider>
         <Layout>
-          <Header
+          <div
             style={{
-              padding: 0,
               background: colorBgContainer,
               boxShadow: "0 2px 4px rgba(0,0,0,0.1)",
             }}
           >
-            <div className="flex items-center justify-between h-full px-5 ">
+            <div className="flex items-center justify-between px-5 py-3">
               <Button
                 type="text"
                 icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
                 onClick={() => setCollapsed(!collapsed)}
               />
-
-              <Dropdown menu={{ items: menuItems }} trigger={["click"]}>
-                <Avatar icon={<CiUser />} className="cursor-pointer" />
-              </Dropdown>
+              <div className="flex gap-3">
+                <div>
+                  <p className="font-semibold">{profile?.userName}</p>
+                  <p className="text-xs text-zinc-500">{profile?.email}</p>
+                </div>
+                <Dropdown menu={{ items: menuItems }} trigger={["click"]}>
+                  <Avatar icon={<CiUser />} className="cursor-pointer" />
+                </Dropdown>
+              </div>
             </div>
-          </Header>
+          </div>
           <Content style={{ margin: "24px 16px 0", overflow: "initial" }}>
             {children}
           </Content>
