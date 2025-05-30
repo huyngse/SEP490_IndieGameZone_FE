@@ -22,8 +22,8 @@ const HomePage = () => {
         <Link to={"/search"} className="hover-underline text-gray-500">
           Search
         </Link>
-        <Link to={"/news"} className="hover-underline text-gray-500">
-          News
+        <Link to={"/forum"} className="hover-underline text-gray-500">
+          Forum
         </Link>
       </div>
       <FeaturedGameSection />

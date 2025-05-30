@@ -8,7 +8,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { MdCategory, MdSpaceDashboard } from "react-icons/md";
 import { BiSolidUserAccount } from "react-icons/bi";
 import { LiaLanguageSolid } from "react-icons/lia";
-import { FaDoorOpen, FaTags, FaWindows } from "react-icons/fa";
+import { FaDoorOpen, FaTags, FaUser, FaWindows } from "react-icons/fa";
 import { CiDiscount1, CiUser } from "react-icons/ci";
 import { GrAchievement } from "react-icons/gr";
 import { TbCancel } from "react-icons/tb";
@@ -59,22 +59,9 @@ const AdminLayout = ({ children }: { children: ReactNode }) => {
       key: "Manage Accounts",
       icon: <BiSolidUserAccount />,
       label: "Manage Accounts",
-      children: [
-        {
-          key: "/admin/manage-users",
-          label: "Manage Users",
-          onClick: () => {
-            navigate("/admin/manage-users");
-          },
-        },
-        {
-          key: "/admin/manage-developers",
-          label: "Manage Developers",
-          onClick: () => {
-            navigate("/admin/manage-developers");
-          },
-        },
-      ],
+      onClick: () => {
+        navigate("/admin/manage-accounts");
+      },
     },
     {
       key: "/admin/manage-languages",
@@ -108,14 +95,14 @@ const AdminLayout = ({ children }: { children: ReactNode }) => {
         navigate("/admin/manage-dicounts");
       },
     },
-    {
-      key: "/admin/manage-achivements",
-      icon: <GrAchievement />,
-      label: "Manage Achievements",
-      onClick: () => {
-        navigate("/admin/manage-achivements");
-      },
-    },
+    // {
+    //   key: "/admin/manage-achivements",
+    //   icon: <GrAchievement />,
+    //   label: "Manage Achievements",
+    //   onClick: () => {
+    //     navigate("/admin/manage-achivements");
+    //   },
+    // },
     {
       key: "/admin/manage-age-restrictions",
       icon: <TbCancel />,

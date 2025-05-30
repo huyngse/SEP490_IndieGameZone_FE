@@ -6,6 +6,7 @@ import UserProfileContaienr from "./user-profile-container";
 import DeveloperDashboardContainer from "./developer-dashboard-container";
 import VerifyEmailPage from "@/pages/verify-email-page";
 import SearchPage from "@/pages/search-page/search-page";
+import ForumPage from "@/pages/forum-page/forum-page";
 
 const HomeContainer = () => {
   return (
@@ -16,6 +17,8 @@ const HomeContainer = () => {
         <Route path="/account/*" element={<UserProfileContaienr />} />
         <Route path="/verify-email" element={<VerifyEmailPage />} />
         <Route path="/search/*" element={<SearchPage />} />
+        <Route path="/forum/*" element={<ForumPage />} />
+        
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </HomeLayout>
