@@ -111,6 +111,9 @@ const UserProfileContainer = ({ children }: { children: ReactNode }) => {
   const {
     token: { colorBgContainer },
   } = theme.useToken();
+
+
+
   return (
     <MaxWidthWrapper>
       <div className="mt-5 bg-zinc-800 rounded drop-shadow border-zinc-700 border">

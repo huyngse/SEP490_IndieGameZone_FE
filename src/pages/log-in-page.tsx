@@ -1,10 +1,56 @@
-import { Form, Input, Button } from "antd";
+import { Form, Input, Button, FormProps } from "antd";
 import logo from "@/assets/indiegamezone-logo.svg";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import background from "@/assets/wow-bg.jpg";
 import googleIcon from "@/assets/google_icon.png";
+import { useEffect, useState } from "react";
+import { login } from "@/lib/api/auth-api";
+import toast from "react-hot-toast";
+type FieldType = {
+  userNameOrEmail: string;
+  password: string;
+};
 
 const LogInPage = () => {
+  const [form] = Form.useForm();
+  const [isSumitting, setIsSumitting] = useState(false);
+  const [error, setError] = useState("");
+  const navigate = useNavigate();
+  const onFinish: FormProps<FieldType>["onFinish"] = async (values) => {
+    setIsSumitting(true);
+    setError("");
+    const result = await login(values);
+    setIsSumitting(false);
+    if (result.error) {
+      if (result.data) {
+        toast.error(result.data.detail);
+        setError(result.data.detail);
+      } else {
+        toast.error(result.error);
+      }
+    } else {
+      localStorage.setItem("accessToken", result.data.accessToken);
+      localStorage.setItem("refreshToken", result.data.refreshToken);
+      toast.success("Login successfully");
+      setTimeout(() => {
+        navigate("/");
+      }, 1000);
+    }
+  };
+
+  // const onFinishFailed: FormProps<FieldType>["onFinishFailed"] = (
+  //   errorInfo
+  // ) => {
+  //   console.log("Failed:", errorInfo);
+  // };
+
+  useEffect(() => {
+    const token = localStorage.getItem("accessToken");
+    if (token) {
+      navigate("/");
+    }
+  }, []);
+  
   return (
     <div className="grid grid-cols-2 h-screen bg-zinc-800">
       <div
@@ -29,11 +75,22 @@ const LogInPage = () => {
       <div className="flex items-center justify-center flex-col">
         <div className="w-full max-w-md p-4 shadow-lg rounded-xl">
           <img src={logo} alt="" className="mb-10" />
-          <Form layout="vertical" autoComplete="off">
+          <Form
+            layout="vertical"
+            autoComplete="off"
+            onFinish={onFinish}
+            // onFinishFailed={onFinishFailed}
+            form={form}
+          >
             <Form.Item
-              label={<span className="font-bold">Email</span>}
-              name="email"
-              rules={[{ required: true, message: "Please enter your email" }]}
+              label={<span className="font-bold">Email or username</span>}
+              name="userNameOrEmail"
+              rules={[
+                {
+                  required: true,
+                  message: "Please enter your email or username",
+                },
+              ]}
               style={{ marginBottom: 10 }}
             >
               <Input
@@ -72,9 +129,11 @@ const LogInPage = () => {
                     fontWeight: "bold",
                     textTransform: "uppercase",
                   }}
+                  loading={isSumitting}
                 >
                   Log In
                 </Button>
+                {error && <p className="text-red-400">{error}</p>}
               </Form.Item>
             </div>
           </Form>
@@ -90,6 +149,7 @@ const LogInPage = () => {
               fontWeight: "bold",
               textTransform: "uppercase",
             }}
+            disabled={isSumitting}
           >
             <img src={googleIcon} alt="" className="size-4 me-2" />
             Log in with Google

@@ -7,12 +7,14 @@ import "./styles/index.css";
 import "@/styles/antd.css";
 import App from "./App.tsx";
 import { BrowserRouter } from "react-router-dom";
-import '@ant-design/v5-patch-for-react-19';
+import "@ant-design/v5-patch-for-react-19";
+import { Toaster } from "react-hot-toast";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <BrowserRouter>
-        <App />
+      <App />
+      <Toaster />
     </BrowserRouter>
   </StrictMode>
 );

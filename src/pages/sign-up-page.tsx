@@ -1,9 +1,18 @@
-import { Form, Input, Button, Checkbox, CheckboxProps, Radio, DatePicker, message } from "antd";
+import {
+  Form,
+  Input,
+  Button,
+  Checkbox,
+  CheckboxProps,
+  Radio,
+  DatePicker,
+  message,
+} from "antd";
 import logo from "@/assets/indiegamezone-logo.svg";
 import googleIcon from "@/assets/google_icon.png";
 import background from "@/assets/videogame-bg.jpg";
 import { Link, useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { register } from "@/lib/api/auth-api";
 
 const SignUpPage = () => {
@@ -14,7 +23,6 @@ const SignUpPage = () => {
 
   const onChange: CheckboxProps["onChange"] = (e) => {
     setAcceptTerms(e.target.checked);
-    console.log(`checked = ${e.target.checked}`);
   };
 
   const onFinish = async (values: any) => {
@@ -24,19 +32,19 @@ const SignUpPage = () => {
     }
 
     setLoading(true);
-    
+
     try {
       const registerData = {
         email: values.email,
         userName: values.userName,
-        birthday: values.birthday?.format('YYYY-MM-DD'),
+        birthday: values.birthday?.format("YYYY-MM-DD"),
         password: values.password,
         confirmPassword: values.confirmPassword,
-        role: values.role
+        role: values.role,
       };
 
       const result = await register(registerData);
-      
+
       if (result.success) {
         message.success("Registration successful!");
         form.resetFields();
@@ -53,17 +61,24 @@ const SignUpPage = () => {
 
   const validateConfirmPassword = ({ getFieldValue }: any) => ({
     validator(_: any, value: string) {
-      if (!value || getFieldValue('password') === value) {
+      if (!value || getFieldValue("password") === value) {
         return Promise.resolve();
       }
-      return Promise.reject(new Error('Passwords do not match!'));
+      return Promise.reject(new Error("Passwords do not match!"));
     },
   });
+
+  useEffect(() => {
+    const token = localStorage.getItem("accessToken");
+    if (token) {
+      navigate("/");
+    }
+  }, []);
 
   return (
     <div className="h-screen bg-zinc-800">
       <div
-        className="bg-cover bg-center relative overflow-hidden drop-shadow-xl flex justify-center items-center min-h-screen"
+        className="bg-cover bg-center relative overflow-hidden drop-shadow-xl flex justify-center items-center min-h-screen py-5"
         style={{
           backgroundImage: `url(${background})`,
         }}
@@ -77,23 +92,29 @@ const SignUpPage = () => {
             <div className="flex justify-center mb-10 px-30">
               <span className="text-4xl font-bold font-mono mt-5">Sign Up</span>
             </div>
-            <Form 
+            <Form
               form={form}
-              layout="vertical" 
+              layout="vertical"
               autoComplete="off"
               onFinish={onFinish}
-              initialValues={{ role: 'Player' }}
+              initialValues={{ role: "Player" }}
             >
               <Form.Item
-                label={<span className="font-bold">Full Name</span>}
+                label={<span className="font-bold">User name</span>}
                 name="userName"
                 rules={[
-                  { required: true, message: "Please enter your Full name" },
-                  { min: 3, message: "Full name must be at least 3 characters" }
+                  { required: true, message: "Please enter your user name" },
+                  {
+                    min: 3,
+                    message: "User name must be at least 3 characters",
+                  },
                 ]}
                 style={{ marginBottom: 10 }}
               >
-                <Input placeholder="Enter your Full name" style={{ paddingBlock: 10 }} />
+                <Input
+                  placeholder="Enter your user name"
+                  style={{ paddingBlock: 10 }}
+                />
               </Form.Item>
 
               <Form.Item
@@ -101,24 +122,32 @@ const SignUpPage = () => {
                 name="email"
                 rules={[
                   { required: true, message: "Please enter your Email" },
-                  { type: 'email', message: "Invalid email format!" }
+                  { type: "email", message: "Invalid email format!" },
                 ]}
                 style={{ marginBottom: 10 }}
               >
-                <Input placeholder="Enter your Email" style={{ paddingBlock: 10 }} />
+                <Input
+                  placeholder="Enter your Email"
+                  style={{ paddingBlock: 10 }}
+                />
               </Form.Item>
 
               <Form.Item
                 label={<span className="font-bold">Birthday</span>}
                 name="birthday"
-                rules={[{ required: true, message: "Please select your birthday" }]}
+                rules={[
+                  { required: true, message: "Please select your birthday" },
+                ]}
                 style={{ marginBottom: 10 }}
+                extra="DD-MM-YYYY"
               >
                 <DatePicker
                   placeholder="Select your birthday"
                   style={{ paddingBlock: 10, width: "100%" }}
-                  format="YYYY-MM-DD"
-                  disabledDate={(current) => current && current.isAfter(new Date())}
+                  format="DD-MM-YYYY"
+                  disabledDate={(current) =>
+                    current && current.isAfter(new Date())
+                  }
                 />
               </Form.Item>
 
@@ -127,24 +156,30 @@ const SignUpPage = () => {
                 name="password"
                 rules={[
                   { required: true, message: "Please enter your password" },
-                  { min: 6, message: "Password must be at least 6 characters" }
+                  { min: 6, message: "Password must be at least 6 characters" },
                 ]}
                 style={{ marginBottom: 2 }}
               >
-                <Input.Password placeholder="Enter your password" style={{ paddingBlock: 10 }} />
+                <Input.Password
+                  placeholder="Enter your password"
+                  style={{ paddingBlock: 10 }}
+                />
               </Form.Item>
 
               <Form.Item
                 label={<span className="font-bold">Confirm Password</span>}
                 name="confirmPassword"
-                dependencies={['password']}
+                dependencies={["password"]}
                 rules={[
                   { required: true, message: "Please confirm your password" },
-                  validateConfirmPassword
+                  validateConfirmPassword,
                 ]}
                 style={{ marginTop: 4 }}
               >
-                <Input.Password placeholder="Confirm your password" style={{ paddingBlock: 10 }} />
+                <Input.Password
+                  placeholder="Confirm your password"
+                  style={{ paddingBlock: 10 }}
+                />
               </Form.Item>
 
               <Form.Item
@@ -159,10 +194,16 @@ const SignUpPage = () => {
                     buttonStyle="solid"
                     style={{ display: "flex" }}
                   >
-                    <Radio.Button style={{ width: 120, textAlign: "center" }} value="Player">
+                    <Radio.Button
+                      style={{ width: 120, textAlign: "center" }}
+                      value="Player"
+                    >
                       Player
                     </Radio.Button>
-                    <Radio.Button style={{ width: 120, textAlign: "center" }} value="Developer">
+                    <Radio.Button
+                      style={{ width: 120, textAlign: "center" }}
+                      value="Developer"
+                    >
                       Developer
                     </Radio.Button>
                   </Radio.Group>
@@ -173,7 +214,9 @@ const SignUpPage = () => {
                 <Checkbox onChange={onChange} checked={acceptTerms}>
                   I accept the{" "}
                   <Link to={""}>
-                    <span className="text-red-400 underline">Terms of Service</span>
+                    <span className="text-red-400 underline">
+                      Terms of Service
+                    </span>
                   </Link>
                 </Checkbox>
               </div>
