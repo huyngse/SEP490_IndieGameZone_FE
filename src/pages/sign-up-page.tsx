@@ -100,7 +100,7 @@ const SignUpPage = () => {
               initialValues={{ role: "Player" }}
             >
               <Form.Item
-                label={<span className="font-bold">User Name</span>}
+                label={<span className="font-bold">User name</span>}
                 name="userName"
                 rules={[
                   { required: true, message: "Please enter your user name" },
