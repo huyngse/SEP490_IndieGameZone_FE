@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { 
   Table, 
   Button, 
-  Space, 
   Tag, 
   Avatar, 
   Input, 
@@ -25,13 +25,11 @@ import type { ColumnsType } from 'antd/es/table';
 import { User } from '@/types/user';
 import { getAllAccounts } from '@/lib/api/user-api';
 
-
 const ManageAccounts: React.FC = () => {
   const [users, setUsers] = useState<User[]>([]);
   const [loading, setLoading] = useState(false);
   const [searchText, setSearchText] = useState('');
-
-
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetchUsers();
@@ -57,46 +55,58 @@ const ManageAccounts: React.FC = () => {
   };
 
   const handleEdit = (user: User) => {
-    message.info(`Edit user: ${user.fullname}`);
+    message.info(`Edit user: ${user.fullName || user.userName}`);
   };
 
   const handleDelete = (user: User) => {
+    const displayName = user.fullName || user.userName;
     Modal.confirm({
       title: 'Are you sure?',
-      content: `Do you want to delete user "${user.fullname}"?`,
+      content: `Do you want to delete user "${displayName}"?`,
       okText: 'Yes',
       okType: 'danger',
       cancelText: 'No',
       onOk() {
-        message.success(`User ${user.fullname} deleted successfully`);
+        message.success(`User ${displayName} deleted successfully`);
       },
     });
   };
 
   const handleView = (user: User) => {
-    message.info(`View user: ${user.fullname}`);
+    navigate(`/admin/detail-user/${user.id}`);
   };
-
   const columns: ColumnsType<User> = [
     {
       title: 'User',
-      dataIndex: 'fullname',
-      key: 'fullname',
-      render: (text: string, record: User) => (
-        <div className="flex items-center gap-3">
-          <Avatar 
-            src={record.avatar} 
-            icon={<UserOutlined />}
-            size={40}
-            className="shadow-sm"
-          />
-          <div>
-            <div className="font-medium text-gray-900">{text}</div>
-            <div className="text-sm text-gray-500">@{record.userName}</div>
+      dataIndex: 'fullName',
+      key: 'fullName',
+      render: (text: string | undefined, record: User) => {
+        const displayName = text || record.userName;
+        const hasFullName = Boolean(text);
+        
+        return (
+          <div className="flex items-center gap-3">
+            <Avatar 
+              src={record.avatar} 
+              icon={<UserOutlined />}
+              size={40}
+              className="shadow-sm"
+            />
+            <div>
+              <div className="font-medium text-gray-900">
+                {displayName}
+                {!hasFullName && (
+                  <Tooltip title="No full name provided">
+                    <span className="text-gray-400 text-xs ml-1">(username)</span>
+                  </Tooltip>
+                )}
+              </div>
+              <div className="text-sm text-gray-500">@{record.userName}</div>
+            </div>
           </div>
-        </div>
-      ),
-      width: 250,
+        );
+      },
+      width: 280,
     },
     {
       title: 'Email',
@@ -119,9 +129,23 @@ const ManageAccounts: React.FC = () => {
       dataIndex: ['role', 'name'],
       key: 'role',
       render: (role: string) => (
-        <Tag color="blue" className="font-medium">
-          {role}
-        </Tag>
+        <Tag
+  color={
+    role === 'Admin'
+      ? 'gold'
+      : role === 'Player'
+      ? 'blue'
+      : role === 'Moderator'
+      ? 'pink'
+      : role === 'Developer'
+      ? 'purple'
+      : 'default'
+  }
+  className="font-medium"
+>
+  {role}
+</Tag>
+
       ),
     },
     {
@@ -140,18 +164,32 @@ const ManageAccounts: React.FC = () => {
       ),
     },
     {
-      title: 'Last Login',
-      dataIndex: 'lastLogin',
-      key: 'lastLogin',
+      title: 'Joined Date',
+      dataIndex: 'joinedDate',
+      key: 'joinedDate',
       render: (date: string) => (
         <div className="text-sm text-gray-600">
           {new Date(date).toLocaleDateString('en-US', {
             year: 'numeric',
             month: 'short',
+            day: 'numeric'
+          })}
+        </div>
+      ),
+    },
+    {
+      title: 'Last Login',
+      dataIndex: 'lastLogin',
+      key: 'lastLogin',
+      render: (date: string) => (
+        <div className="text-sm text-gray-600">
+          {date ? new Date(date).toLocaleDateString('en-US', {
+            year: 'numeric',
+            month: 'short',
             day: 'numeric',
             hour: '2-digit',
             minute: '2-digit'
-          })}
+          }) : 'Never'}
         </div>
       ),
     },
@@ -195,11 +233,16 @@ const ManageAccounts: React.FC = () => {
     },
   ];
 
-  const filteredUsers = users.filter(user =>
-    user.fullname.toLowerCase().includes(searchText.toLowerCase()) ||
-    user.email.toLowerCase().includes(searchText.toLowerCase()) ||
-    user.userName.toLowerCase().includes(searchText.toLowerCase())
-  );
+  const filteredUsers = users.filter(user => {
+    const searchLower = searchText.toLowerCase();
+    const fullName = user.fullName || '';
+    const email = user.email || '';
+    const userName = user.userName || '';
+    
+    return fullName.toLowerCase().includes(searchLower) ||
+           email.toLowerCase().includes(searchLower) ||
+           userName.toLowerCase().includes(searchLower);
+  });
 
   return (
     <div className="p-6 bg-gray-50 min-h-screen">
@@ -209,7 +252,9 @@ const ManageAccounts: React.FC = () => {
           <h1 className="text-3xl font-bold text-gray-900 mb-2">
             Manage Accounts
           </h1>
-         
+          <p className="text-gray-600">
+            Total users: {filteredUsers.length} {searchText && `(filtered from ${users.length})`}
+          </p>
         </div>
 
         <Card className="mb-6 shadow-sm">
@@ -222,6 +267,7 @@ const ManageAccounts: React.FC = () => {
                 onChange={(e) => setSearchText(e.target.value)}
                 className="w-full"
                 size="large"
+                allowClear
               />
             </div>
             <div className="flex gap-3">
@@ -244,7 +290,6 @@ const ManageAccounts: React.FC = () => {
           </div>
         </Card>
 
-        
         <Card className="shadow-sm">
           <Table<User>
             columns={columns}
@@ -259,7 +304,7 @@ const ManageAccounts: React.FC = () => {
                 `${range[0]}-${range[1]} of ${total} users`,
             }}
             className="overflow-x-auto"
-            scroll={{ x: 800 }}
+            scroll={{ x: 1000 }}
           />
         </Card>
       </div>

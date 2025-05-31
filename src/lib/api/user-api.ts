@@ -21,3 +21,11 @@ export const getAllAccounts = async () => {
         return handleApiError(error);
     }
 };
+export const getUserById = async (id: string) => {
+  try {
+    const { data } = await axiosClient.get(`/api/users/${id}`);
+    return { error: null, data, success: true };
+  } catch (error) {
+    return handleApiError(error);
+  }
+};
