@@ -7,31 +7,9 @@ import ManageLanguages from "@/pages/admin/manage-languages/manage-languages";
 import ManagePlatform from "@/pages/admin/manage-platform/manage-platform";
 import ManageTags from "@/pages/admin/manage-tags/manage-tags";
 import AdminNotFoundPage from "@/pages/errors/simple-not-found-page";
-import useProfileStore from "@/store/use-profile-store";
-import { useEffect } from "react";
-import { Route, Routes, useNavigate } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 
 const AdminContainer = () => {
-  const navigate = useNavigate();
-  const { profile, loading, fetchProfile } = useProfileStore();
-  useEffect(() => {
-    const token = localStorage.getItem("accessToken");
-    if (!token) {
-      navigate("/");
-    } else {
-      fetchProfile();
-    }
-  }, []);
-
-  useEffect(() => {
-    if (!loading && profile != null) {
-      if (profile.role.name != "Admin" && profile.role.name != "Moderator") {
-        navigate("/");
-      }
-    }
-  }, [profile]);
-
-
   return (
     <AdminLayout>
       <Routes>

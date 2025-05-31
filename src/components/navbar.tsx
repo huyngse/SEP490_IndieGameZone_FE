@@ -12,7 +12,7 @@ import {
 } from "react-icons/fa";
 import ProfileMenu from "./profile-menu";
 import { MdOutlineInsertChart } from "react-icons/md";
-import useProfileStore from "@/store/use-profile-store";
+import useProfileStore from "@/store/use-auth-store";
 
 type MenuItem = GetProp<MenuProps, "items">[number];
 

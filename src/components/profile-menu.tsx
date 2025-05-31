@@ -1,4 +1,4 @@
-import useProfileStore from "@/store/use-profile-store";
+import useProfileStore from "@/store/use-auth-store";
 import { Avatar, Divider, Dropdown, MenuProps, theme } from "antd";
 import React from "react";
 import { CiUser } from "react-icons/ci";

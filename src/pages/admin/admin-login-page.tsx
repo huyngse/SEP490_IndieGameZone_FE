@@ -5,6 +5,7 @@ import googleIcon from "@/assets/google_icon.png";
 import { useState } from "react";
 import { login } from "@/lib/api/auth-api";
 import toast from "react-hot-toast";
+import useAuthStore from "@/store/use-auth-store";
 type FieldType = {
   email: string;
   password: string;
@@ -13,6 +14,7 @@ type FieldType = {
 const LoginAdminPage = () => {
   const [form] = Form.useForm();
   const [isSumitting, setIsSumitting] = useState(false);
+  const { fetchProfile } = useAuthStore();
   const navigate = useNavigate();
   const [error, setError] = useState("");
 
@@ -35,8 +37,9 @@ const LoginAdminPage = () => {
       localStorage.setItem("accessToken", result.data.accessToken);
       localStorage.setItem("refreshToken", result.data.refreshToken);
       toast.success("Login successfully");
+      fetchProfile();
       setTimeout(() => {
-        navigate("/");
+        navigate("/admin");
       }, 1000);
     }
   };
