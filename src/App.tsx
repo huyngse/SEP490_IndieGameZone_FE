@@ -47,9 +47,13 @@ function App() {
           </AuthLayout>
         }
       />
-      <Route element={<RequireAuth />}>
+      <Route element={<RequireAuth allowedRoles={["Admin", "Moderator"]} />}>
         <Route path="/admin/*" element={<AdminContainer />} />
+      </Route>
+      <Route element={<RequireAuth allowedRoles={["Developer", "Player"]} />}>
         <Route path="/account/*" element={<UserProfileContainer />} />
+      </Route>
+      <Route element={<RequireAuth allowedRoles={["Developer"]} />}>
         <Route path="/dev/*" element={<DeveloperDashboardContainer />} />
       </Route>
       <Route path="/*" element={<HomeContainer />} />
