@@ -1,23 +1,18 @@
-import UserProfileContainer from "@/layouts/user-profile-layout";
+import HomeLayout from "@/layouts/home-layout";
+import UserProfileLayout from "@/layouts/user-profile-layout";
 import UserProfilePage from "@/pages/user-profile/user-profile-page";
-import { useEffect } from "react";
-import { Route, Routes, useNavigate } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 
-const UserProfileContaienr = () => {
-  const navigate = useNavigate();
-  useEffect(() => {
-    const token = localStorage.getItem("accessToken");
-    if (!token) {
-      navigate("/");
-    }
-  }, []);
+const UserProfileContainer = () => {
   return (
-    <UserProfileContainer>
-      <Routes>
-        <Route path="/profile" element={<UserProfilePage />} />
-      </Routes>
-    </UserProfileContainer>
+    <HomeLayout>
+      <UserProfileLayout>
+        <Routes>
+          <Route path="/profile" element={<UserProfilePage />} />
+        </Routes>
+      </UserProfileLayout>
+    </HomeLayout>
   );
 };
 
-export default UserProfileContaienr;
+export default UserProfileContainer;

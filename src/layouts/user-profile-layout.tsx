@@ -5,7 +5,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 
 type MenuItem = Required<MenuProps>["items"][number];
 
-const UserProfileContainer = ({ children }: { children: ReactNode }) => {
+const UserProfileLayout = ({ children }: { children: ReactNode }) => {
   const navigate = useNavigate();
   const location = useLocation();
   const items: MenuItem[] = [
@@ -140,4 +140,4 @@ const UserProfileContainer = ({ children }: { children: ReactNode }) => {
   );
 };
 
-export default UserProfileContainer;
+export default UserProfileLayout;

@@ -1,8 +1,8 @@
-import { getUserInfo, refreshToken } from '@/lib/api/auth-api';
+import { getUserInfo } from '@/lib/api/auth-api';
 import { User } from '@/types/user';
 import { create } from 'zustand';
 
-interface ProfileState {
+interface AuthState {
     profile?: User;
     loading: boolean;
     error: string | null;
@@ -13,7 +13,7 @@ interface ProfileState {
     rerender: () => void;
 }
 
-const useProfileStore = create<ProfileState>((set) => ({
+const useAuthStore = create<AuthState>((set) => ({
     profile: undefined,
     loading: false,
     error: null,
@@ -28,21 +28,7 @@ const useProfileStore = create<ProfileState>((set) => ({
             if (!response.error) {
                 set({ profile: response.data, loading: false });
             } else {
-                const refreshResponse = await refreshToken();
-                if (!refreshResponse.error) {
-                    localStorage.clear();
-                    localStorage.setItem("accessToken", refreshResponse.data.accessToken);
-                    localStorage.setItem("refreshToken", refreshResponse.data.refreshToken);
-                    response = await getUserInfo();
-                    if (!response.error) {
-                        set({ profile: response.data, loading: false });
-                    } else {
-                        set({ loading: false, error: response.error });
-                    }
-                } else {
-                    set({ loading: false, error: "refresh failed" });
-                    localStorage.clear();
-                }
+                set({ loading: false, error: response.error });
             }
         } catch (error: any) {
             set({ loading: false, error: error.message });
@@ -57,4 +43,4 @@ const useProfileStore = create<ProfileState>((set) => ({
     }
 }));
 
-export default useProfileStore;
+export default useAuthStore;

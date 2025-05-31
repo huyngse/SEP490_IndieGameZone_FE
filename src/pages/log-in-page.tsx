@@ -6,6 +6,7 @@ import googleIcon from "@/assets/google_icon.png";
 import { useEffect, useState } from "react";
 import { login } from "@/lib/api/auth-api";
 import toast from "react-hot-toast";
+import useAuthStore from "@/store/use-auth-store";
 type FieldType = {
   userNameOrEmail: string;
   password: string;
@@ -14,6 +15,7 @@ type FieldType = {
 const LogInPage = () => {
   const [form] = Form.useForm();
   const [isSumitting, setIsSumitting] = useState(false);
+  const { fetchProfile } = useAuthStore();
   const [error, setError] = useState("");
   const navigate = useNavigate();
   const onFinish: FormProps<FieldType>["onFinish"] = async (values) => {
@@ -32,6 +34,7 @@ const LogInPage = () => {
       localStorage.setItem("accessToken", result.data.accessToken);
       localStorage.setItem("refreshToken", result.data.refreshToken);
       toast.success("Login successfully");
+      fetchProfile();
       setTimeout(() => {
         navigate("/");
       }, 1000);

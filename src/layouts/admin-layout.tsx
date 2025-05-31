@@ -1,5 +1,5 @@
 import { Avatar, Button, ConfigProvider, Dropdown, theme } from "antd";
-import React, { ReactNode, useState } from "react";
+import React, { ReactNode, useEffect, useState } from "react";
 import type { MenuProps } from "antd";
 import { Layout, Menu } from "antd";
 import { MenuFoldOutlined, MenuUnfoldOutlined } from "@ant-design/icons";
@@ -8,12 +8,10 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { MdCategory, MdSpaceDashboard } from "react-icons/md";
 import { BiSolidUserAccount } from "react-icons/bi";
 import { LiaLanguageSolid } from "react-icons/lia";
-import { FaDoorOpen, FaTags, FaUser, FaWindows } from "react-icons/fa";
+import { FaDoorOpen, FaTags, FaWindows } from "react-icons/fa";
 import { CiDiscount1, CiUser } from "react-icons/ci";
-import { GrAchievement } from "react-icons/gr";
 import { TbCancel } from "react-icons/tb";
-import useProfileStore from "@/store/use-profile-store";
-import Loader from "@/components/loader";
+import useProfileStore from "@/store/use-auth-store";
 
 const { Content, Footer, Sider } = Layout;
 
@@ -32,10 +30,11 @@ const AdminLayout = ({ children }: { children: ReactNode }) => {
   const [collapsed, setCollapsed] = useState(false);
   const { logout, profile } = useProfileStore();
   const location = useLocation();
-  const { loading } = useProfileStore();
   const handleLogout = () => {
-    logout();
     navigate("/admin/log-in");
+    setTimeout(() => {
+      logout();
+    }, 100);
   };
 
   const navigate = useNavigate();
@@ -128,22 +127,11 @@ const AdminLayout = ({ children }: { children: ReactNode }) => {
   const {
     token: { colorBgContainer },
   } = theme.useToken();
-  if (loading) {
-    return (
-      <ConfigProvider
-        theme={{
-          algorithm: theme.defaultAlgorithm,
-          token: {
-            colorPrimary: "#FF6600",
-            borderRadius: 2,
-            colorLink: "#FFF",
-          },
-        }}
-      >
-        <Loader theme="light" />
-      </ConfigProvider>
-    );
-  }
+
+  useEffect(() => {
+    document.body.classList.remove("dark");
+  }, [])
+
   return (
     <ConfigProvider
       theme={{
