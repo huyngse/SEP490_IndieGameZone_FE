@@ -1,5 +1,6 @@
 import AdminLayout from "@/layouts/admin-layout";
 import DashBoardPage from "@/pages/admin/dashboard-page";
+import DetailUser from "@/pages/admin/manage-accounts/datail-user";
 import ManageAccounts from "@/pages/admin/manage-accounts/manage-accounts";
 import ManageAgeRestrictionPage from "@/pages/admin/manage-age-restrictions/manage-age-restrictions-page";
 import ManageCategories from "@/pages/admin/manage-categories/manage-categories";
@@ -20,6 +21,8 @@ const AdminContainer = () => {
         <Route path="/manage-tags" element={<ManageTags />} />
         <Route path="/manage-accounts" element={<ManageAccounts />} />
         <Route path="/manage-categories" element={<ManageCategories />} />
+        <Route path="/detail-user/:id" element={<DetailUser />} />
+
         <Route
           path="/manage-age-restrictions"
           element={<ManageAgeRestrictionPage />}
