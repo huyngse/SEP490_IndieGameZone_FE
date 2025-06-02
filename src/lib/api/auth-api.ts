@@ -76,20 +76,6 @@ export const verifyEmail = async (token: string, userId: string) => {
   }
 }
 
-export const refreshToken = async () => {
-  const accessToken = localStorage.getItem("accessToken");
-  const refreshToken = localStorage.getItem("refreshToken");
-  try {
-    const result = await axiosClient.post(`/api/authentications/refresh-token`, {
-      accessToken: accessToken,
-      refreshToken: refreshToken
-    });
-    return { error: null, data: result.data, success: true };
-  } catch (error: any) {
-    return handleApiError(error);
-  }
-}
-
 export const resendVerificationemail = async (email: string) => {
   try {
     const result = await axiosClient.post(`/api/authentications/resend-confirmation`, {

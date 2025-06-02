@@ -34,8 +34,7 @@ const LoginAdminPage = () => {
         toast.error(result.error);
       }
     } else {
-      localStorage.setItem("accessToken", result.data.accessToken);
-      localStorage.setItem("refreshToken", result.data.refreshToken);
+      localStorage.setItem("accessToken", result.data);
       toast.success("Login successfully");
       fetchProfile();
       setTimeout(() => {
