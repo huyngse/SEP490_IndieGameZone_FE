@@ -68,9 +68,10 @@ axiosClient.interceptors.response.use(
             isRefreshing = true;
 
             try {
+                const token = localStorage.getItem('accessToken');
                 const response = await axios.post<RefreshTokenResponse>(
                     `${BASE_URL}/api/authentications/refresh-token`,
-                    {}, // Optionally pass it; some systems don't require it
+                    token,
                     { withCredentials: true } // Send HTTP-only cookie
                 );
 
