@@ -4,6 +4,7 @@ import {
   FormProps,
   GetProp,
   Image,
+  Input,
   Upload,
   UploadFile,
   UploadProps,
@@ -18,6 +19,7 @@ const { Dragger } = Upload;
 type FieldType = {
   coverImage: UploadFile[];
   gameImages: UploadFile[];
+  videoLink: string;
 };
 
 type FileType = Parameters<GetProp<UploadProps, "beforeUpload">>[0];
@@ -29,6 +31,9 @@ const getBase64 = (file: FileType): Promise<string> =>
     reader.onload = () => resolve(reader.result as string);
     reader.onerror = (error) => reject(error);
   });
+
+const YOUTUBE_REGEX =
+  /^(https?:\/\/)?(www\.)?(youtube\.com\/watch\?v=|youtu\.be\/)[\w-]{11}$/;
 
 const MediaAssetsForm = () => {
   const [form] = Form.useForm();
@@ -60,6 +65,14 @@ const MediaAssetsForm = () => {
   const onFinish: FormProps<FieldType>["onFinish"] = (values) => {
     console.log(values);
   };
+
+  const validateYouTubeUrl = (_: any, value: any) => {
+    if (!value || YOUTUBE_REGEX.test(value)) {
+      return Promise.resolve();
+    }
+    return Promise.reject(new Error('Please enter a valid YouTube URL'));
+  };
+
 
   const props = {
     name: "file",
@@ -178,6 +191,17 @@ const MediaAssetsForm = () => {
           src={previewImage}
         />
       )}
+      <Form.Item<FieldType>
+        name="videoLink"
+        label={<span className="font-bold">Gameplay video or trailer</span>}
+        rules={[
+          { validator: validateYouTubeUrl },
+        ]}
+        style={{ width: 500, marginBottom: 20 }}
+        extra="Provide a link to YouTube"
+      >
+        <Input placeholder="eg. https://www.youtube.com/watch?v=Xe6v3UJok48" />
+      </Form.Item>
     </Form>
   );
 };
