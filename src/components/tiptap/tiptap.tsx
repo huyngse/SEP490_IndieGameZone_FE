@@ -268,7 +268,7 @@ const Tiptap = ({
   darkTheme?: boolean;
 }) => {
   return (
-    <div className="border bg-zinc-800 rounded-lg border-gray overflow-hidden">
+    <div className="border bg-zinc-800 rounded border-zinc-600 overflow-hidden">
       <EditorProvider
         slotBefore={
           <>
