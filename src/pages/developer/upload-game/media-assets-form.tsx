@@ -1,6 +1,7 @@
 import {
   Button,
   Form,
+  FormInstance,
   FormProps,
   GetProp,
   Image,
@@ -22,9 +23,9 @@ type FieldType = {
   videoLink: string;
 };
 
-type FileType = Parameters<GetProp<UploadProps, "beforeUpload">>[0];
+type UploadFileType = Parameters<GetProp<UploadProps, "beforeUpload">>[0];
 
-const getBase64 = (file: FileType): Promise<string> =>
+const getBase64 = (file: UploadFileType): Promise<string> =>
   new Promise((resolve, reject) => {
     const reader = new FileReader();
     reader.readAsDataURL(file);
@@ -35,8 +36,7 @@ const getBase64 = (file: FileType): Promise<string> =>
 const YOUTUBE_REGEX =
   /^(https?:\/\/)?(www\.)?(youtube\.com\/watch\?v=|youtu\.be\/)[\w-]{11}$/;
 
-const MediaAssetsForm = () => {
-  const [form] = Form.useForm();
+const MediaAssetsForm = ({ form }: { form: FormInstance<any> }) => {
   const [coverImageUrl, setCoverImageUrl] = useState<string | undefined>("");
   const [previewOpen, setPreviewOpen] = useState(false);
   const [previewImage, setPreviewImage] = useState("");
@@ -112,7 +112,7 @@ const MediaAssetsForm = () => {
 
   const handlePreview = async (file: UploadFile) => {
     if (!file.url && !file.preview) {
-      file.preview = await getBase64(file.originFileObj as FileType);
+      file.preview = await getBase64(file.originFileObj as UploadFileType);
     }
 
     setPreviewImage(file.url || (file.preview as string));

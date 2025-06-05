@@ -185,6 +185,9 @@ const GameInfoForm = ({ form }: { form: FormInstance<any> }) => {
         name="ageRestrictionId"
         extra="Select the appropriate age rating for your game"
         style={{ width: 500, marginBottom: 20 }}
+        rules={[
+          { required: true, message: "Please select content rating" },
+        ]}
       >
         <Select
           showSearch

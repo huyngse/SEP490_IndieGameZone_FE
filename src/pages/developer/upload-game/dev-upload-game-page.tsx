@@ -1,12 +1,26 @@
-import { Form } from "antd";
+import { Button, Form } from "antd";
 import PaymentConfigWarning from "./payment-config-warning";
 import UploadGuideLine from "./upload-guideline";
 import GameInfoForm from "./game-info-form";
 import StepLayout from "./step-layout";
 import MediaAssetsForm from "./media-assets-form";
+import GameFilesForm from "./game-files-form";
 
 const DevUploadGamePage = () => {
   const [infoForm] = Form.useForm();
+  const [mediaForm] = Form.useForm();
+  const [fileForm] = Form.useForm();
+
+  const handleSaveDraft = () => {
+    console.log(infoForm.getFieldsValue());
+    console.log(mediaForm.getFieldsValue());
+    console.log(fileForm.getFieldsValue());
+  }
+  const handleSubmit = () => {
+    infoForm.submit();
+    mediaForm.submit();
+    fileForm.submit();
+  }
 
   return (
     <div className="bg-zinc-900">
@@ -19,8 +33,17 @@ const DevUploadGamePage = () => {
         </StepLayout>
         <hr className="border-zinc-600 my-5" />
         <StepLayout title="Game Media Assets" current={1}>
-          <MediaAssetsForm />
+          <MediaAssetsForm form={mediaForm} />
         </StepLayout>
+        <hr className="border-zinc-600 my-5" />
+        <StepLayout title="Game Files" current={2}>
+          <GameFilesForm form={fileForm} />
+        </StepLayout>
+        <hr className="border-zinc-600 my-5" />
+        <div className="flex justify-center gap-3">
+          <Button onClick={handleSaveDraft}>Save as Draft</Button>
+          <Button type="primary" onClick={handleSubmit}>Continue to Preview</Button>
+        </div>
       </div>
     </div>
   );
