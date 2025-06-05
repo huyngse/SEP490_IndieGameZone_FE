@@ -68,10 +68,16 @@ axiosClient.interceptors.response.use(
             isRefreshing = true;
 
             try {
+                const token = localStorage.getItem('accessToken');
                 const response = await axios.post<RefreshTokenResponse>(
                     `${BASE_URL}/api/authentications/refresh-token`,
-                    {}, // Optionally pass it; some systems don't require it
-                    { withCredentials: true } // Send HTTP-only cookie
+                    {},
+                    {
+                        withCredentials: true,
+                        headers: {
+                            Authorization: `Bearer ${token}`
+                        }
+                    }
                 );
 
                 const newAccessToken = response.data.accessToken;

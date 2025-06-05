@@ -30,6 +30,7 @@ type FieldType = {
   categoryId: string;
   gameStatusId: string;
   languageIds: string[];
+  releaseStatus: string;
   tagIds: string[];
   file: {
     platformId: string;
@@ -41,7 +42,34 @@ const pricingOptions: CheckboxGroupProps<string>["options"] = [
   { label: "Free", value: "free" },
   { label: "Paid", value: "paid" },
 ];
-
+const releaseStatusOptions = [
+  {
+    label: "Released",
+    value: "released",
+    description: "Project is complete, but might receive some updates",
+  },
+  {
+    label: "In Development",
+    value: "in-development",
+    description: "Project is in active developerment (or in early access)",
+  },
+  {
+    label: "On Hold",
+    value: "on-hold",
+    description: "Development is paused for now",
+  },
+  {
+    label: "Canceled",
+    value: "canceled",
+    description: "Development has stopped indefinitely",
+  },
+  {
+    label: "Prototype",
+    value: "prototype",
+    description:
+      "An early prototype for testing an idea out, fate of the project unknown",
+  },
+];
 const GameInfoForm = ({ form }: { form: FormInstance<any> }) => {
   const [pricingOption, setPricingOption] = useState("free");
   const [allowDonate, setAllowDonate] = useState(false);
@@ -185,9 +213,7 @@ const GameInfoForm = ({ form }: { form: FormInstance<any> }) => {
         name="ageRestrictionId"
         extra="Select the appropriate age rating for your game"
         style={{ width: 500, marginBottom: 20 }}
-        rules={[
-          { required: true, message: "Please select content rating" },
-        ]}
+        rules={[{ required: true, message: "Please select content rating" }]}
       >
         <Select
           showSearch
@@ -202,14 +228,36 @@ const GameInfoForm = ({ form }: { form: FormInstance<any> }) => {
             }))}
           optionRender={(option) => (
             <div>
-              <div className="text-lg font-semibold">{option.data.label}</div>
-              <p className="text-wrap">{option.data.desc}</p>
+              <div className="font-semibold">{option.data.label}</div>
+              <p className="text-wrap text-sm text-zinc-500">{option.data.desc}</p>
             </div>
           )}
           loading={loadingAgeRestrictions}
         />
       </Form.Item>
-      <Form.Item<FieldType> name="description" label={<span className="font-bold">Description</span>}>
+      <Form.Item
+        label={<span className="font-bold">Release Status</span>}
+        name={"releaseStatus"}
+        rules={[{ required: true, message: "Please select a release status" }]}
+        style={{ width: 500, marginBottom: 20 }}
+      >
+        <Select
+          showSearch
+          optionFilterProp="label"
+          placeholder="Click to view options"
+          options={releaseStatusOptions}
+          optionRender={(option) => (
+            <div>
+              <div className="font-semibold">{option.data.label}</div>
+              <p className="text-wrap text-sm text-zinc-500">{option.data.description}</p>
+            </div>
+          )}
+        />
+      </Form.Item>
+      <Form.Item<FieldType>
+        name="description"
+        label={<span className="font-bold">Description</span>}
+      >
         <Tiptap />
       </Form.Item>
       {/* PRICING */}

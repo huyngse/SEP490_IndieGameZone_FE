@@ -1,3 +1,4 @@
+import Tiptap from "@/components/tiptap/tiptap";
 import usePlatformStore from "@/store/use-platform-store";
 import {
   Button,
@@ -18,6 +19,7 @@ type FieldType = {
     file: UploadFile[];
     platformId: string;
   }[];
+  installInstruction: string;
 };
 
 const GameFilesForm = ({ form }: { form: FormInstance<any> }) => {
@@ -70,7 +72,7 @@ const GameFilesForm = ({ form }: { form: FormInstance<any> }) => {
                   getValueFromEvent={normFile}
                   rules={[{ required: true, message: "Please upload a file" }]}
                   style={{ marginBottom: 10 }}
-                  extra="Upload the actual game file (compressed builds are accepted)."
+                  extra="Upload the actual game file (compressed builds are accepted). File size limit: 1 GB."
                 >
                   <Upload
                     beforeUpload={() => false}
@@ -89,7 +91,7 @@ const GameFilesForm = ({ form }: { form: FormInstance<any> }) => {
                 </Form.Item>
                 <Form.Item
                   {...restField}
-                  label={<span className="font-bold">Languages</span>}
+                  label={<span className="font-bold">Platform</span>}
                   name={[name, "platformId"]}
                   extra="Select the platform this game file is for"
                   style={{ width: 500, marginBottom: 20 }}
@@ -130,6 +132,13 @@ const GameFilesForm = ({ form }: { form: FormInstance<any> }) => {
           </>
         )}
       </Form.List>
+      <Form.Item<FieldType>
+        name="installInstruction"
+        label={<span className="font-bold">Install instruction</span>}
+        extra="Help players install your game on their specific platform"
+      >
+        <Tiptap />
+      </Form.Item>
     </Form>
   );
 };
