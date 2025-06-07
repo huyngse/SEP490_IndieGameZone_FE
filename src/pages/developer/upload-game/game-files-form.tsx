@@ -1,5 +1,6 @@
 import Tiptap from "@/components/tiptap/tiptap";
 import usePlatformStore from "@/store/use-platform-store";
+import { GameFiles } from "@/types/game";
 import {
   Button,
   Form,
@@ -13,14 +14,7 @@ import {
 import { useEffect } from "react";
 import { FaMinus, FaPlus, FaUpload } from "react-icons/fa";
 
-type FieldType = {
-  files: {
-    displayName: string;
-    file: UploadFile[];
-    platformId: string;
-  }[];
-  installInstruction: string;
-};
+type FieldType = GameFiles;
 
 const GameFilesForm = ({ form }: { form: FormInstance<any> }) => {
   const { fetchPlatforms, platforms, loading } = usePlatformStore();
@@ -30,28 +24,63 @@ const GameFilesForm = ({ form }: { form: FormInstance<any> }) => {
     return e?.fileList;
   };
 
-  const onFinish: FormProps<FieldType>["onFinish"] = (values) => {
-    const files = values.files?.map((item) => ({
-      displayName: item.displayName,
-      file: item.file?.[0]?.originFileObj,
-    }));
-    console.log("Submitted Files:", files);
-  };
+  const onFinish: FormProps<FieldType>["onFinish"] = () => {};
 
   useEffect(() => {
     fetchPlatforms();
   }, []);
+
+  const handleBeforeUpload = (file: UploadFile, index: number) => {
+    const currentList = form.getFieldValue('files') || [];
+    const currentItem = currentList[index] || {};
+    // Only auto-fill if displayName is empty
+    if (!currentItem.displayName) {
+      const updatedList = [...currentList];
+      updatedList[index] = {
+        ...currentItem,
+        displayName: file.name,
+        file: [file], // store the file in antd Upload-compatible format
+      };
+      form.setFieldsValue({ files: updatedList });
+    }
+    return false; // Prevent automatic upload
+  };
 
   return (
     <Form form={form} onFinish={onFinish} layout="vertical" autoComplete="off">
       <Form.List name="files">
         {(fields, { add, remove }) => (
           <>
-            {fields.map(({ key, name, ...restField }) => (
+            {fields.map(({ key, name, ...restField }, index) => (
               <div
                 key={key}
                 className="flex flex-col mb-5 border p-3 bg-zinc-800 rounded"
               >
+                <Form.Item
+                  {...restField}
+                  name={[name, "file"]}
+                  label="Upload File"
+                  valuePropName="fileList"
+                  getValueFromEvent={normFile}
+                  rules={[{ required: true, message: "Please upload a file" }]}
+                  style={{ marginBottom: 10 }}
+                  extra="Upload the actual game file (compressed builds are accepted). File size limit: 1 GB."
+                >
+                  <Upload
+                    maxCount={1}
+                    showUploadList={{
+                      extra: ({ size = 0 }) => (
+                        <span style={{ color: "#cccccc" }}>
+                          &nbsp;({(size / 1024 / 1024).toFixed(2)}MB)
+                        </span>
+                      ),
+                      showRemoveIcon: true,
+                    }}
+                    beforeUpload={(file) => handleBeforeUpload(file, index)}
+                  >
+                    <Button icon={<FaUpload />}>Select File</Button>
+                  </Upload>
+                </Form.Item>
                 <Form.Item
                   {...restField}
                   name={[name, "displayName"]}
@@ -64,31 +93,7 @@ const GameFilesForm = ({ form }: { form: FormInstance<any> }) => {
                 >
                   <Input placeholder="Enter display name" />
                 </Form.Item>
-                <Form.Item
-                  {...restField}
-                  name={[name, "file"]}
-                  label="Upload File"
-                  valuePropName="fileList"
-                  getValueFromEvent={normFile}
-                  rules={[{ required: true, message: "Please upload a file" }]}
-                  style={{ marginBottom: 10 }}
-                  extra="Upload the actual game file (compressed builds are accepted). File size limit: 1 GB."
-                >
-                  <Upload
-                    beforeUpload={() => false}
-                    maxCount={1}
-                    showUploadList={{
-                      extra: ({ size = 0 }) => (
-                        <span style={{ color: "#cccccc" }}>
-                          &nbsp;({(size / 1024 / 1024).toFixed(2)}MB)
-                        </span>
-                      ),
-                      showRemoveIcon: true,
-                    }}
-                  >
-                    <Button icon={<FaUpload />}>Select File</Button>
-                  </Upload>
-                </Form.Item>
+
                 <Form.Item
                   {...restField}
                   label={<span className="font-bold">Platform</span>}

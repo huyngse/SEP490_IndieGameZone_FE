@@ -9,10 +9,6 @@ export const axiosClient = axios.create({
     withCredentials: true, // Send cookies, including HTTP-only refresh token
 });
 
-interface RefreshTokenResponse {
-    accessToken: string;
-}
-
 let isRefreshing = false;
 let failedQueue: {
     resolve: (value?: unknown) => void;
@@ -69,7 +65,7 @@ axiosClient.interceptors.response.use(
 
             try {
                 const token = localStorage.getItem('accessToken');
-                const response = await axios.post<RefreshTokenResponse>(
+                const response = await axios.post<string>(
                     `${BASE_URL}/api/authentications/refresh-token`,
                     {},
                     {
@@ -80,7 +76,7 @@ axiosClient.interceptors.response.use(
                     }
                 );
 
-                const newAccessToken = response.data.accessToken;
+                const newAccessToken = response.data;
                 localStorage.setItem('accessToken', newAccessToken);
 
                 axiosClient.defaults.headers.common['Authorization'] = `Bearer ${newAccessToken}`;
@@ -94,7 +90,7 @@ axiosClient.interceptors.response.use(
             } catch (err) {
                 console.error(err);
                 processQueue(err, null);
-                localStorage.removeItem('accessToken');
+                // localStorage.removeItem('accessToken');
                 // Optional: redirect to login
                 // window.location.href = '/login';
                 return Promise.reject(err);
