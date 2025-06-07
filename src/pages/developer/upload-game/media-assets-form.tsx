@@ -1,3 +1,4 @@
+import { getBase64 } from "@/lib/file";
 import { GameMediaAssets } from "@/types/game";
 import {
   Button,
@@ -22,13 +23,7 @@ type FieldType = GameMediaAssets;
 
 type UploadFileType = Parameters<GetProp<UploadProps, "beforeUpload">>[0];
 
-const getBase64 = (file: UploadFileType): Promise<string> =>
-  new Promise((resolve, reject) => {
-    const reader = new FileReader();
-    reader.readAsDataURL(file);
-    reader.onload = () => resolve(reader.result as string);
-    reader.onerror = (error) => reject(error);
-  });
+
 
 const YOUTUBE_REGEX =
   /^(https?:\/\/)?(www\.)?(youtube\.com\/watch\?v=|youtu\.be\/)[\w-]{11}$/;
@@ -82,7 +77,6 @@ const MediaAssetsForm = ({ form }: { form: FormInstance<any> }) => {
         return Upload.LIST_IGNORE;
       }
 
-      // Preview
       const reader = new FileReader();
       reader.onload = () => {
         if (typeof reader.result == "string") {
@@ -91,7 +85,7 @@ const MediaAssetsForm = ({ form }: { form: FormInstance<any> }) => {
       };
       reader.readAsDataURL(file);
 
-      return false; // prevent auto upload
+      return false; 
     },
     onRemove: () => {
       setCoverImageUrl(undefined);

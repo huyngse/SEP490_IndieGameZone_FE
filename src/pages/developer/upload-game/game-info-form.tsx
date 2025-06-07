@@ -2,6 +2,7 @@ import Tiptap from "@/components/tiptap/tiptap";
 import useAgeRestrictionStore from "@/store/use-age-restriction-store";
 import useCategoryStore from "@/store/use-category-store";
 import useLanguageStore from "@/store/use-language-store";
+import useManageGameStore from "@/store/use-manage-game-store";
 import useTagStore from "@/store/use-tag-store";
 import { GameInfo } from "@/types/game";
 import {
@@ -18,11 +19,11 @@ import { CheckboxGroupProps } from "antd/es/checkbox";
 import TextArea from "antd/es/input/TextArea";
 import { useEffect, useState } from "react";
 
-type FieldType = GameInfo
+type FieldType = GameInfo;
 
 const pricingOptions: CheckboxGroupProps<string>["options"] = [
-  { label: "Free", value: "free" },
-  { label: "Paid", value: "paid" },
+  { label: "Free", value: "Free" },
+  { label: "Paid", value: "Paid" },
 ];
 const releaseStatusOptions = [
   {
@@ -53,8 +54,9 @@ const releaseStatusOptions = [
   },
 ];
 const GameInfoForm = ({ form }: { form: FormInstance<any> }) => {
-  const [pricingOption, setPricingOption] = useState("free");
   const [allowDonate, setAllowDonate] = useState(false);
+  const { isLoaded, gameInfo } = useManageGameStore();
+  const [isFree, setIsFree] = useState(true);
   const {
     categories,
     fetchCategories,
@@ -89,7 +91,7 @@ const GameInfoForm = ({ form }: { form: FormInstance<any> }) => {
       onFinish={onFinish}
       autoComplete="off"
       layout="vertical"
-      initialValues={{ price: 1000 }}
+      initialValues={{ price: 1000, pricingOption: "Free" }}
     >
       <Form.Item<FieldType>
         name="name"
@@ -211,7 +213,9 @@ const GameInfoForm = ({ form }: { form: FormInstance<any> }) => {
           optionRender={(option) => (
             <div>
               <div className="font-semibold">{option.data.label}</div>
-              <p className="text-wrap text-sm text-zinc-500">{option.data.desc}</p>
+              <p className="text-wrap text-sm text-zinc-500">
+                {option.data.desc}
+              </p>
             </div>
           )}
           loading={loadingAgeRestrictions}
@@ -231,7 +235,9 @@ const GameInfoForm = ({ form }: { form: FormInstance<any> }) => {
           optionRender={(option) => (
             <div>
               <div className="font-semibold">{option.data.label}</div>
-              <p className="text-wrap text-sm text-zinc-500">{option.data.description}</p>
+              <p className="text-wrap text-sm text-zinc-500">
+                {option.data.description}
+              </p>
             </div>
           )}
         />
@@ -240,27 +246,28 @@ const GameInfoForm = ({ form }: { form: FormInstance<any> }) => {
         name="description"
         label={<span className="font-bold">Description</span>}
       >
-        <Tiptap />
+        {isLoaded ? <Tiptap value={gameInfo.description} /> : <Tiptap />}
       </Form.Item>
       {/* PRICING */}
       <h2 className="text-2xl mb-3">Pricing</h2>
       <Form.Item<FieldType>
-        extra={
-          pricingOption == "free" && "The game's files will be freely available"
-        }
+        extra={isFree && "The game's files will be freely available"}
+        name={"pricingOption"}
         style={{ marginBottom: 10 }}
       >
         <Radio.Group
-          value={pricingOption}
           options={pricingOptions}
-          onChange={(e) => setPricingOption(e.target.value)}
+          onChange={(e) => {
+            form.setFieldValue("pricingOption", e.target.value);
+            setIsFree(e.target.value == "Free");
+          }}
         />
       </Form.Item>
       <Form.Item
         name="price"
         label="Price"
         rules={[{ required: true, message: "Please a price" }]}
-        hidden={pricingOption == "free"}
+        hidden={isFree}
         extra="Price to pay to get download access to game"
       >
         <InputNumber

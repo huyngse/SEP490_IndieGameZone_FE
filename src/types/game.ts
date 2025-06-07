@@ -17,6 +17,7 @@ export type GameInfo = {
     description: string;
     price: number;
     allowDonate: boolean;
+    pricingOption: "Free" | "Paid"
 };
 
 export type GameMediaAssets = {

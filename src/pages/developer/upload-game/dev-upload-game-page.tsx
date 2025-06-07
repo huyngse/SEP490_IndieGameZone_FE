@@ -7,14 +7,25 @@ import MediaAssetsForm from "./media-assets-form";
 import GameFilesForm from "./game-files-form";
 import useManageGameStore from "@/store/use-manage-game-store";
 import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
+import { GameFiles, GameInfo, GameMediaAssets } from "@/types/game";
 
 const DevUploadGamePage = () => {
-  const [infoForm] = Form.useForm();
-  const [mediaForm] = Form.useForm();
-  const [fileForm] = Form.useForm();
+  const [infoForm] = Form.useForm<GameInfo>();
+  const [mediaForm] = Form.useForm<GameMediaAssets>();
+  const [fileForm] = Form.useForm<GameFiles>();
+  const {
+    setGameInfo,
+    setGameFiles,
+    setGameMediaAssets,
+    gameInfo,
+    gameMediaAssets,
+    gameFiles,
+    saveState,
+    loadState,
+    isLoaded,
+  } = useManageGameStore();
   const navigate = useNavigate();
-  const { setGameInfo, setGameFiles, setGameMediaAssets, saveState } =
-    useManageGameStore();
 
   const handleSaveDraft = () => {
     console.log(infoForm.getFieldsValue());
@@ -32,10 +43,35 @@ const DevUploadGamePage = () => {
       saveState();
       navigate("/dev/upload-game/preview");
     } catch (error) {
-      console.log(error);
       message.error("Make sure all fields are filled correctly!");
     }
   };
+
+  useEffect(() => {
+    loadState();
+  }, []);
+
+  useEffect(() => {
+    if (isLoaded) {
+      infoForm.setFieldValue("name", gameInfo.name);
+      infoForm.setFieldValue("shortDescription", gameInfo.shortDescription);
+      infoForm.setFieldValue("averageSession", gameInfo.averageSession);
+      infoForm.setFieldValue("categoryId", gameInfo.categoryId);
+      infoForm.setFieldValue("tagIds", gameInfo.tagIds);
+      infoForm.setFieldValue("languageIds", gameInfo.languageIds);
+      infoForm.setFieldValue("ageRestrictionId", gameInfo.ageRestrictionId);
+      infoForm.setFieldValue("releaseStatus", gameInfo.releaseStatus);
+      infoForm.setFieldValue("description", gameInfo.description);
+      infoForm.setFieldValue("price", gameInfo.price);
+      infoForm.setFieldValue("allowDonate", gameInfo.allowDonate);
+      infoForm.setFieldValue("pricingOption", gameInfo.pricingOption);
+      mediaForm.setFieldValue("videoLink", gameMediaAssets.videoLink);
+      fileForm.setFieldValue(
+        "installInstruction",
+        gameFiles.installInstruction
+      );
+    }
+  }, [isLoaded]);
 
   return (
     <div className="bg-zinc-900">
