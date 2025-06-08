@@ -1,5 +1,4 @@
-import Tiptap from "@/components/tiptap/tiptap";
-import useManageGameStore from "@/store/use-manage-game-store";
+import TiptapEditor from "@/components/tiptap/tiptap-editor";
 import usePlatformStore from "@/store/use-platform-store";
 import { GameFiles } from "@/types/game";
 import {
@@ -19,7 +18,6 @@ type FieldType = GameFiles;
 
 const GameFilesForm = ({ form }: { form: FormInstance<any> }) => {
   const { fetchPlatforms, platforms, loading } = usePlatformStore();
-  const { isLoaded, gameFiles } = useManageGameStore();
 
   const normFile = (e: any) => {
     if (Array.isArray(e)) return e;
@@ -144,11 +142,7 @@ const GameFilesForm = ({ form }: { form: FormInstance<any> }) => {
         label={<span className="font-bold">Install instruction</span>}
         extra="Help players install your game on their specific platform"
       >
-        {isLoaded ? (
-          <Tiptap value={gameFiles.installInstruction} />
-        ) : (
-          <Tiptap />
-        )}
+        <TiptapEditor />
       </Form.Item>
     </Form>
   );

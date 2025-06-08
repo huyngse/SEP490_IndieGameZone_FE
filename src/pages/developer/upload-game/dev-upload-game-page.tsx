@@ -53,23 +53,27 @@ const DevUploadGamePage = () => {
 
   useEffect(() => {
     if (isLoaded) {
-      infoForm.setFieldValue("name", gameInfo.name);
-      infoForm.setFieldValue("shortDescription", gameInfo.shortDescription);
-      infoForm.setFieldValue("averageSession", gameInfo.averageSession);
-      infoForm.setFieldValue("categoryId", gameInfo.categoryId);
-      infoForm.setFieldValue("tagIds", gameInfo.tagIds);
-      infoForm.setFieldValue("languageIds", gameInfo.languageIds);
-      infoForm.setFieldValue("ageRestrictionId", gameInfo.ageRestrictionId);
-      infoForm.setFieldValue("releaseStatus", gameInfo.releaseStatus);
-      infoForm.setFieldValue("description", gameInfo.description);
-      infoForm.setFieldValue("price", gameInfo.price);
-      infoForm.setFieldValue("allowDonate", gameInfo.allowDonate);
-      infoForm.setFieldValue("pricingOption", gameInfo.pricingOption);
-      mediaForm.setFieldValue("videoLink", gameMediaAssets.videoLink);
-      fileForm.setFieldValue(
-        "installInstruction",
-        gameFiles.installInstruction
-      );
+      infoForm.setFieldsValue({
+        name: gameInfo.name,
+        shortDescription: gameInfo.shortDescription,
+        averageSession: gameInfo.averageSession,
+        categoryId: gameInfo.categoryId,
+        tagIds: gameInfo.tagIds,
+        languageIds: gameInfo.languageIds,
+        ageRestrictionId: gameInfo.ageRestrictionId,
+        releaseStatus: gameInfo.releaseStatus,
+        description: gameInfo.description,
+        price: gameInfo.price,
+        allowDonate: gameInfo.allowDonate,
+        pricingOption: gameInfo.pricingOption,
+      });
+      mediaForm.setFieldsValue({
+        videoLink: gameMediaAssets.videoLink,
+      });
+
+      fileForm.setFieldsValue({
+        installInstruction: gameFiles.installInstruction,
+      });
     }
   }, [isLoaded]);
 

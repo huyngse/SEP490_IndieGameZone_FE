@@ -1,8 +1,7 @@
-import Tiptap from "@/components/tiptap/tiptap";
+import TiptapEditor from "@/components/tiptap/tiptap-editor";
 import useAgeRestrictionStore from "@/store/use-age-restriction-store";
 import useCategoryStore from "@/store/use-category-store";
 import useLanguageStore from "@/store/use-language-store";
-import useManageGameStore from "@/store/use-manage-game-store";
 import useTagStore from "@/store/use-tag-store";
 import { GameInfo } from "@/types/game";
 import {
@@ -55,7 +54,6 @@ const releaseStatusOptions = [
 ];
 const GameInfoForm = ({ form }: { form: FormInstance<any> }) => {
   const [allowDonate, setAllowDonate] = useState(false);
-  const { isLoaded, gameInfo } = useManageGameStore();
   const [isFree, setIsFree] = useState(true);
   const {
     categories,
@@ -73,9 +71,7 @@ const GameInfoForm = ({ form }: { form: FormInstance<any> }) => {
     fetchLanguages,
     loading: loadingLanguages,
   } = useLanguageStore();
-  const onFinish: FormProps<FieldType>["onFinish"] = (values) => {
-    console.log("Success:", values);
-  };
+  const onFinish: FormProps<FieldType>["onFinish"] = () => {};
 
   useEffect(() => {
     fetchCategories();
@@ -83,7 +79,6 @@ const GameInfoForm = ({ form }: { form: FormInstance<any> }) => {
     fetchAgeRestrictions();
     fetchLanguages();
   }, []);
-
   return (
     <Form
       form={form}
@@ -246,7 +241,7 @@ const GameInfoForm = ({ form }: { form: FormInstance<any> }) => {
         name="description"
         label={<span className="font-bold">Description</span>}
       >
-        {isLoaded ? <Tiptap value={gameInfo.description} /> : <Tiptap />}
+        <TiptapEditor />
       </Form.Item>
       {/* PRICING */}
       <h2 className="text-2xl mb-3">Pricing</h2>
