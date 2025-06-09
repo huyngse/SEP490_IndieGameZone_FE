@@ -36,7 +36,7 @@ import ScrollToTop from "@/components/scroll-to-top";
 import { formatCurrencyVND } from "@/lib/currency";
 import usePlatformStore from "@/store/use-platform-store";
 
-export const GamePreviewUploadPage = () => {
+const PreviewUploadPage = () => {
   const { isSaved, gameMediaAssets, gameInfo, gameFiles } =
     useManageGameStore();
   const [coverImageUrl, setcoverImageUrl] = useState<string>("");
@@ -353,3 +353,5 @@ export const GamePreviewUploadPage = () => {
     </div>
   );
 };
+
+export default PreviewUploadPage;
