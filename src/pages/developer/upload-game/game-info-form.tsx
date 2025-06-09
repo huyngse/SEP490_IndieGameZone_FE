@@ -2,6 +2,7 @@ import TiptapEditor from "@/components/tiptap/tiptap-editor";
 import useAgeRestrictionStore from "@/store/use-age-restriction-store";
 import useCategoryStore from "@/store/use-category-store";
 import useLanguageStore from "@/store/use-language-store";
+import useManageGameStore from "@/store/use-manage-game-store";
 import useTagStore from "@/store/use-tag-store";
 import { GameInfo } from "@/types/game";
 import {
@@ -55,6 +56,7 @@ const releaseStatusOptions = [
 const GameInfoForm = ({ form }: { form: FormInstance<any> }) => {
   const [allowDonate, setAllowDonate] = useState(false);
   const [isFree, setIsFree] = useState(true);
+  const { isLoaded, gameInfo } = useManageGameStore();
   const {
     categories,
     fetchCategories,
@@ -78,6 +80,9 @@ const GameInfoForm = ({ form }: { form: FormInstance<any> }) => {
     fetchTags();
     fetchAgeRestrictions();
     fetchLanguages();
+    if (isLoaded) {
+      setIsFree(gameInfo.pricingOption == "Free");
+    }
   }, []);
   return (
     <Form

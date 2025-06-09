@@ -34,6 +34,7 @@ export type GameFiles = {
         file: UploadFile[];
         fileUrls: string;
         platformId: string;
+        fileSize: number;
     }[];
     installInstruction: string;
 }

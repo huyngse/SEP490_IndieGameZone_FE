@@ -39,6 +39,7 @@ const GameFilesForm = ({ form }: { form: FormInstance<any> }) => {
       updatedList[index] = {
         ...currentItem,
         displayName: file.name,
+        fileSize: file.size ?? 0,
         file: [file], // store the file in antd Upload-compatible format
       };
       form.setFieldsValue({ files: updatedList });
@@ -48,8 +49,21 @@ const GameFilesForm = ({ form }: { form: FormInstance<any> }) => {
 
   return (
     <Form form={form} onFinish={onFinish} layout="vertical" autoComplete="off">
-      <Form.List name="files">
-        {(fields, { add, remove }) => (
+      <Form.List
+        name="files"
+        rules={[
+          {
+            validator: async (_, files) => {
+              if (!files || files.length < 1) {
+                return Promise.reject(
+                  new Error("At least one file is required")
+                );
+              }
+            },
+          },
+        ]}
+      >
+        {(fields, { add, remove }, { errors }) => (
           <>
             {fields.map(({ key, name, ...restField }, index) => (
               <div
@@ -123,7 +137,7 @@ const GameFilesForm = ({ form }: { form: FormInstance<any> }) => {
                 </Button>
               </div>
             ))}
-
+            <Form.ErrorList errors={errors} className="text-red-400 mb-1"/>
             <Form.Item>
               <Button
                 type="dashed"

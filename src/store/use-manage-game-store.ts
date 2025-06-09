@@ -81,8 +81,8 @@ const useManageGameStore = create<ManageGameState>((set, get) => ({
     saveState: () => {
         const stateToSave = {
             info: get().gameInfo,
-            mediaAssets: get().gameMediaAssets,
-            files: get().gameFiles,
+            mediaAssets: { ...get().gameMediaAssets, coverImage: null, gameImages: null },
+            files: { ...get().gameFiles, files: null },
         }
         localStorage.setItem(STORAGE_KEY, JSON.stringify(stateToSave));
         set({ isSaved: true })

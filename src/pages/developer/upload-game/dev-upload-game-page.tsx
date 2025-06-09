@@ -9,6 +9,7 @@ import useManageGameStore from "@/store/use-manage-game-store";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import { GameFiles, GameInfo, GameMediaAssets } from "@/types/game";
+import { FaArrowRight, FaRegSave } from "react-icons/fa";
 
 const DevUploadGamePage = () => {
   const [infoForm] = Form.useForm<GameInfo>();
@@ -48,7 +49,9 @@ const DevUploadGamePage = () => {
   };
 
   useEffect(() => {
-    loadState();
+    if (!isLoaded) {
+      loadState();
+    }
   }, []);
 
   useEffect(() => {
@@ -68,10 +71,13 @@ const DevUploadGamePage = () => {
         pricingOption: gameInfo.pricingOption,
       });
       mediaForm.setFieldsValue({
+        coverImage: gameMediaAssets.coverImage,
+        gameImages: gameMediaAssets.gameImages,
         videoLink: gameMediaAssets.videoLink,
       });
 
       fileForm.setFieldsValue({
+        files: gameFiles.files,
         installInstruction: gameFiles.installInstruction,
       });
     }
@@ -96,8 +102,10 @@ const DevUploadGamePage = () => {
         </StepLayout>
         <hr className="border-zinc-600 my-5" />
         <div className="flex justify-center gap-3">
-          <Button onClick={handleSaveDraft}>Save as Draft</Button>
-          <Button type="primary" onClick={handleSubmit}>
+          <Button onClick={handleSaveDraft} icon={<FaRegSave />}>
+            Save as Draft
+          </Button>
+          <Button type="primary" onClick={handleSubmit} icon={<FaArrowRight />}>
             Continue to Preview
           </Button>
         </div>

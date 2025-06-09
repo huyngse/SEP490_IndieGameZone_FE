@@ -1,4 +1,5 @@
 import { getBase64 } from "@/lib/file";
+import useManageGameStore from "@/store/use-manage-game-store";
 import { GameMediaAssets } from "@/types/game";
 import {
   Button,
@@ -13,7 +14,7 @@ import {
   UploadProps,
   message,
 } from "antd";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { CiCirclePlus } from "react-icons/ci";
 import { HiMiniInboxArrowDown } from "react-icons/hi2";
 
@@ -23,8 +24,6 @@ type FieldType = GameMediaAssets;
 
 type UploadFileType = Parameters<GetProp<UploadProps, "beforeUpload">>[0];
 
-
-
 const YOUTUBE_REGEX =
   /^(https?:\/\/)?(www\.)?(youtube\.com\/watch\?v=|youtu\.be\/)[\w-]{11}$/;
 
@@ -33,6 +32,7 @@ const MediaAssetsForm = ({ form }: { form: FormInstance<any> }) => {
   const [previewOpen, setPreviewOpen] = useState(false);
   const [previewImage, setPreviewImage] = useState("");
   const [fileList, setFileList] = useState<UploadFile[]>([]);
+  const {gameMediaAssets} = useManageGameStore();
 
   const handleChange = ({
     fileList: newFileList,
@@ -108,6 +108,17 @@ const MediaAssetsForm = ({ form }: { form: FormInstance<any> }) => {
     setPreviewImage(file.url || (file.preview as string));
     setPreviewOpen(true);
   };
+
+  useEffect(() => {
+    if (gameMediaAssets.coverImage[0]) {
+      const file = gameMediaAssets.coverImage[0].originFileObj
+      if (file) {
+        const url = URL.createObjectURL(file);
+        setCoverImageUrl(url);
+      }
+    }
+  }, [])
+  
   return (
     <Form form={form} layout="vertical" onFinish={onFinish}>
       <Form.Item<FieldType>

@@ -30,10 +30,10 @@ const TiptapView = ({
           prose-ul:list-disc 
           prose-hr:my-5
           outline-none 
-          p-5`,
+          `,
           darkTheme &&
             `
-            text-white 
+            text-zinc-300 
             prose-headings:text-white 
             prose-hr:border-white 
             prose-blockquote:text-white
