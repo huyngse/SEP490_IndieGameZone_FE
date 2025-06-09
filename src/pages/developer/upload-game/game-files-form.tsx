@@ -144,6 +144,7 @@ const GameFilesForm = ({ form }: { form: FormInstance<any> }) => {
                 onClick={() => add()}
                 block
                 icon={<FaPlus />}
+                disabled={fields.length >= 6}
               >
                 Add File
               </Button>

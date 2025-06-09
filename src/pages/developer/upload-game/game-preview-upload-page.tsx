@@ -11,7 +11,16 @@ import { Tag } from "@/types/tag";
 import { Avatar, Button } from "antd";
 import { useEffect, useState } from "react";
 import { CiUser } from "react-icons/ci";
-import { FaArrowLeft, FaDownload, FaRegSave, FaShoppingCart } from "react-icons/fa";
+import {
+  FaApple,
+  FaArrowLeft,
+  FaDownload,
+  FaFileArchive,
+  FaLinux,
+  FaRegSave,
+  FaShoppingCart,
+  FaWindows,
+} from "react-icons/fa";
 import { IoSend } from "react-icons/io5";
 import { useNavigate } from "react-router-dom";
 import UploadSteps from "./upload-steps";
@@ -21,14 +30,15 @@ import Fullscreen from "yet-another-react-lightbox/plugins/fullscreen";
 import Slideshow from "yet-another-react-lightbox/plugins/slideshow";
 import Thumbnails from "yet-another-react-lightbox/plugins/thumbnails";
 import Zoom from "yet-another-react-lightbox/plugins/zoom";
-import Video from "yet-another-react-lightbox/plugins/video";
 import ReactPlayer from "react-player/youtube";
 import { formatDate } from "@/lib/date";
 import ScrollToTop from "@/components/scroll-to-top";
 import { formatCurrencyVND } from "@/lib/currency";
+import usePlatformStore from "@/store/use-platform-store";
 
 export const GamePreviewUploadPage = () => {
-  const { isSaved, gameMediaAssets, gameInfo } = useManageGameStore();
+  const { isSaved, gameMediaAssets, gameInfo, gameFiles } =
+    useManageGameStore();
   const [coverImageUrl, setcoverImageUrl] = useState<string>("");
   const [index, setIndex] = useState(-1);
   const [tags, setTags] = useState<Tag[]>([]);
@@ -39,6 +49,7 @@ export const GamePreviewUploadPage = () => {
   const { languages: allLanguages } = useLanguageStore();
   const { categories: allCategories } = useCategoryStore();
   const { ageRestrictions: allAgeRestrictions } = useAgeRestrictionStore();
+  const { getDefaultPlatforms } = usePlatformStore();
   const { profile } = useAuthStore();
   const [gameImages, setGameImages] = useState<any>([]);
   const [slides, setSlides] = useState<any>([]);
@@ -107,6 +118,7 @@ export const GamePreviewUploadPage = () => {
   }, [gameImages]);
 
   if (!isSaved) return;
+  const defaultPlatforms = getDefaultPlatforms();
   return (
     <div>
       <ScrollToTop />
@@ -157,7 +169,7 @@ export const GamePreviewUploadPage = () => {
           <div className="flex gap-2 text-sm items-end">
             <span className="uppercase text-zinc-400 text-xs">Languages:</span>
             {languages.map((language, index: number) => (
-              <span className="text-orange-200">
+              <span className="text-orange-200" key={`game-language-${index}`}>
                 {language.name} {index != languages.length - 1 && ", "}
               </span>
             ))}
@@ -175,7 +187,7 @@ export const GamePreviewUploadPage = () => {
         slides={slides}
         open={index >= 0}
         close={() => setIndex(-1)}
-        plugins={[Fullscreen, Slideshow, Thumbnails, Zoom, Video]}
+        plugins={[Fullscreen, Slideshow, Thumbnails, Zoom]}
       />
       <div className="flex overflow-auto gap-3 p-3 bg-zinc-900">
         {gameImages.map((image: any, index: number) => (
@@ -202,16 +214,18 @@ export const GamePreviewUploadPage = () => {
           <div className="flex justify-between">
             <div>
               <table>
-                <tr>
-                  <td className="pe-5">Release status</td>
-                  <td className="font-semibold text-orange-200">
-                    {gameInfo.releaseStatus}
-                  </td>
-                </tr>
-                <tr>
-                  <td className="pe-5">Released on</td>
-                  <td className="font-semibold">{formatDate(new Date())}</td>
-                </tr>
+                <tbody>
+                  <tr>
+                    <td className="pe-5">Release status</td>
+                    <td className="font-semibold text-orange-200">
+                      {gameInfo.releaseStatus}
+                    </td>
+                  </tr>
+                  <tr>
+                    <td className="pe-5">Released on</td>
+                    <td className="font-semibold">{formatDate(new Date())}</td>
+                  </tr>
+                </tbody>
               </table>
             </div>
 
@@ -227,25 +241,103 @@ export const GamePreviewUploadPage = () => {
         </div>
         <div className="col-span-4 bg-zinc-900 border border-zinc-800">
           <h1 className="px-5 pt-5 font-semibold text-xl">Download Game</h1>
-          <div className="p-5 border-b border-zinc-800 flex gap-3 items-center">
-            {gameInfo.pricingOption == "Free" ? (
+          <div className="px-5 pt-2 pb-5 border-b border-zinc-800 ">
+            <div className="flex gap-3 items-center">
+              {gameInfo.pricingOption == "Free" ? (
+                <>
+                  <Button size="large" type="primary" icon={<FaDownload />}>
+                    Download Now
+                  </Button>
+                  <p className="mt-1 text-gray-500 text-sm">For Free</p>
+                </>
+              ) : (
+                <>
+                  <Button size="large" type="primary" icon={<FaShoppingCart />}>
+                    Buy Now
+                  </Button>
+                  <p className="mt-1 text-xl">
+                    {formatCurrencyVND(gameInfo.price)}
+                  </p>
+                </>
+              )}
+            </div>
+            {gameInfo.pricingOption == "Paid" && (
               <>
-                <Button size="large" type="primary" icon={<FaDownload />}>
-                  Download Now
-                </Button>
-                <p className="mt-1 text-gray-500 text-sm">For Free</p>
-              </>
-            ) : (
-              <>
-                <Button size="large" type="primary" icon={<FaShoppingCart />}>
-                  Buy Now
-                </Button>
-                <p className="mt-1 text-xl">{formatCurrencyVND(gameInfo.price)}</p>
+                <p className="my-2">
+                  You will get access to the following files:
+                </p>
+                <div className="flex flex-col gap-2">
+                  {gameFiles.files.map((file, index) => {
+                    return (
+                      <div
+                        key={`game-file-${index}`}
+                        className="flex gap-2 items-center p-2 bg-zinc-800 rounded"
+                      >
+                        {file.platformId ==
+                        defaultPlatforms.windowsPlatformId ? (
+                          <FaWindows />
+                        ) : file.platformId ==
+                          defaultPlatforms.macOsPlatformId ? (
+                          <FaApple />
+                        ) : file.platformId ==
+                          defaultPlatforms.linuxPlatformId ? (
+                          <FaLinux />
+                        ) : (
+                          <FaFileArchive />
+                        )}
+                        <span className="font-semibold max-w-50 text-ellipsis overflow-clip">
+                          {file.displayName}
+                        </span>
+                        <span className="text-sm text-zinc-400">
+                          ({(file.fileSize / 1024 / 1024).toFixed(1)} MB)
+                        </span>
+                      </div>
+                    );
+                  })}
+                </div>
               </>
             )}
           </div>
           <div className="p-5">
             <UploadSteps current={3} />
+          </div>
+        </div>
+      </div>
+      <div className="p-3">
+        <p className="text-zinc-500">Preview</p>
+        <h1 className="text-2xl">Download Game Page</h1>
+      </div>
+      <div className="p-3 bg-zinc-900 border border-zinc-700">
+        <div className="flex flex-col gap-2">
+          {gameFiles.files.map((file, index) => {
+            return (
+              <div
+                key={`game-file-${index}`}
+                className="flex gap-2 items-center p-2"
+              >
+                <Button type="primary">Download</Button>
+                {file.platformId == defaultPlatforms.windowsPlatformId ? (
+                  <FaWindows />
+                ) : file.platformId == defaultPlatforms.macOsPlatformId ? (
+                  <FaApple />
+                ) : file.platformId == defaultPlatforms.linuxPlatformId ? (
+                  <FaLinux />
+                ) : (
+                  <FaFileArchive />
+                )}
+                <span className="font-semibold max-w-50 text-ellipsis overflow-clip">
+                  {file.displayName}
+                </span>
+                <span className="text-sm text-zinc-400">
+                  ({(file.fileSize / 1024 / 1024).toFixed(1)} MB)
+                </span>
+              </div>
+            );
+          })}
+          <hr className="border-zinc-700" />
+          <h3>Download and install instructions from {profile?.userName}:</h3>
+          <div className="bg-zinc-800 p-3">
+            <TiptapView value={gameFiles.installInstruction} />
           </div>
         </div>
       </div>
