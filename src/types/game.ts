@@ -13,11 +13,12 @@ export type GameInfo = {
     tagIds: string[];
     languageIds: string[];
     ageRestrictionId: string;
-    releaseStatus: "Released" | "In Development" | "On Hold" | "Canceled" | "Prototype";
+    releaseStatus: "Released" | "InDevelopment" | "OnHold" | "Canceled" | "Prototype";
     description: string;
     price: number;
     allowDonate: boolean;
-    pricingOption: "Free" | "Paid"
+    pricingOption: "Free" | "Paid";
+    visibility: "Draft" | "Restricted" | "Public"
 };
 
 export type GameMediaAssets = {

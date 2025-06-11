@@ -33,17 +33,14 @@ const GameFilesForm = ({ form }: { form: FormInstance<any> }) => {
   const handleBeforeUpload = (file: UploadFile, index: number) => {
     const currentList = form.getFieldValue("files") || [];
     const currentItem = currentList[index] || {};
-    // Only auto-fill if displayName is empty
-    if (!currentItem.displayName) {
-      const updatedList = [...currentList];
-      updatedList[index] = {
-        ...currentItem,
-        displayName: file.name,
-        fileSize: file.size ?? 0,
-        file: [file], // store the file in antd Upload-compatible format
-      };
-      form.setFieldsValue({ files: updatedList });
-    }
+    const updatedList = [...currentList];
+    updatedList[index] = {
+      ...currentItem,
+      displayName: file.name,
+      fileSize: file.size ?? 0,
+      file: [file], // store the file in antd Upload-compatible format
+    };
+    form.setFieldsValue({ files: updatedList });
     return false; // Prevent automatic upload
   };
 
@@ -105,7 +102,7 @@ const GameFilesForm = ({ form }: { form: FormInstance<any> }) => {
                   ]}
                   style={{ width: 500, marginBottom: 5 }}
                 >
-                  <Input placeholder="Enter display name" />
+                  <Input placeholder="Enter display name" disabled />
                 </Form.Item>
 
                 <Form.Item
@@ -137,7 +134,7 @@ const GameFilesForm = ({ form }: { form: FormInstance<any> }) => {
                 </Button>
               </div>
             ))}
-            <Form.ErrorList errors={errors} className="text-red-400 mb-1"/>
+            <Form.ErrorList errors={errors} className="text-red-400 mb-1" />
             <Form.Item>
               <Button
                 type="dashed"

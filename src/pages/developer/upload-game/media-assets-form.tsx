@@ -110,7 +110,7 @@ const MediaAssetsForm = ({ form }: { form: FormInstance<any> }) => {
   };
 
   useEffect(() => {
-    if (gameMediaAssets.coverImage[0]) {
+    if (gameMediaAssets.coverImage && gameMediaAssets.coverImage[0]) {
       const file = gameMediaAssets.coverImage[0].originFileObj
       if (file) {
         const url = URL.createObjectURL(file);

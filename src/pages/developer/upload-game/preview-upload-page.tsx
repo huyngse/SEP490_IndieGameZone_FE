@@ -17,7 +17,6 @@ import {
   FaDownload,
   FaFileArchive,
   FaLinux,
-  FaRegSave,
   FaShoppingCart,
   FaWindows,
 } from "react-icons/fa";
@@ -35,6 +34,7 @@ import { formatDate } from "@/lib/date";
 import ScrollToTop from "@/components/scroll-to-top";
 import { formatCurrencyVND } from "@/lib/currency";
 import usePlatformStore from "@/store/use-platform-store";
+import { GAME_REALEASE_STATUS } from "@/constants/game";
 
 const PreviewUploadPage = () => {
   const { isSaved, gameMediaAssets, gameInfo, gameFiles } =
@@ -88,7 +88,7 @@ const PreviewUploadPage = () => {
         setAgeRestriction(a);
       }
       const images: any = [];
-      gameMediaAssets.gameImages.forEach((i) => {
+      gameMediaAssets.gameImages?.forEach((i) => {
         if (i.originFileObj) {
           const url = URL.createObjectURL(i.originFileObj);
           images.push({ src: url });
@@ -119,6 +119,9 @@ const PreviewUploadPage = () => {
 
   if (!isSaved) return;
   const defaultPlatforms = getDefaultPlatforms();
+  const selectedReleaseStatus = GAME_REALEASE_STATUS.find(
+    (x) => x.value == gameInfo.releaseStatus
+  )?.label;
   return (
     <div>
       <ScrollToTop />
@@ -218,7 +221,7 @@ const PreviewUploadPage = () => {
                   <tr>
                     <td className="pe-5">Release status</td>
                     <td className="font-semibold text-orange-200">
-                      {gameInfo.releaseStatus}
+                      {selectedReleaseStatus}
                     </td>
                   </tr>
                   <tr>
@@ -345,7 +348,6 @@ const PreviewUploadPage = () => {
         <Button icon={<FaArrowLeft />} onClick={handleGoBack}>
           Go Back
         </Button>
-        <Button icon={<FaRegSave />}>Save as Draft</Button>
         <Button type="primary" icon={<IoSend />}>
           Submit Game
         </Button>

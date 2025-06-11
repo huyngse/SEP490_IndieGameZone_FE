@@ -279,7 +279,8 @@ const TiptapEditor = ({
         class: cn(
           `prose
           leading-normal
-          prose-headings:mb-2 
+          prose-headings:my-2 
+          prose-strong:text-white
           prose-ul:m-0
           prose-p:m-0 
           prose-li:m-0
