@@ -33,12 +33,11 @@ const initState: GameData = {
         price: 0,
         allowDonate: false,
         pricingOption: "Free",
+        visibility: "Public"
     },
     gameMediaAssets: {
         coverImage: [],
-        coverImageUrl: "",
         gameImages: [],
-        gameImageUrls: [],
         videoLink: ""
     },
     gameFiles: {

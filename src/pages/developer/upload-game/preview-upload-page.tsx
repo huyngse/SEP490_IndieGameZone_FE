@@ -107,6 +107,9 @@ const PreviewUploadPage = () => {
   const handleGoBack = () => {
     navigate("/dev/upload-game");
   };
+  const handleSubmit = () => {
+    navigate("/dev/upload-game/upload");
+  };
 
   useEffect(() => {
     setSlides([
@@ -348,7 +351,7 @@ const PreviewUploadPage = () => {
         <Button icon={<FaArrowLeft />} onClick={handleGoBack}>
           Go Back
         </Button>
-        <Button type="primary" icon={<IoSend />}>
+        <Button type="primary" icon={<IoSend />} onClick={handleSubmit}>
           Submit Game
         </Button>
       </div>

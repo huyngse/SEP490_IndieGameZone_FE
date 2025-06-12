@@ -1,4 +1,3 @@
-import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -12,10 +11,8 @@ import "@ant-design/v5-patch-for-react-19";
 import { Toaster } from "react-hot-toast";
 
 createRoot(document.getElementById("root")!).render(
-  <StrictMode>
-    <BrowserRouter>
-      <App />
-      <Toaster />
-    </BrowserRouter>
-  </StrictMode>
+  <BrowserRouter>
+    <App />
+    <Toaster />
+  </BrowserRouter>
 );

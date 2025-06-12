@@ -4,6 +4,7 @@ import DevDashBoardPage from "@/pages/developer/dev-dashboard-page";
 import DevManageGamesPage from "@/pages/developer/dev-manage-games-page";
 import DevUploadGamePage from "@/pages/developer/upload-game/dev-upload-game-page";
 import PreviewUploadPage from "@/pages/developer/upload-game/preview-upload-page";
+import UploadProcessPage from "@/pages/developer/upload-game/upload-process-page";
 import NotFoundPage from "@/pages/errors/simple-not-found-page";
 import { Route, Routes } from "react-router-dom";
 
@@ -18,6 +19,10 @@ const DeveloperDashboardContainer = () => {
           <Route
             path="/upload-game/preview"
             element={<PreviewUploadPage />}
+          />
+          <Route
+            path="/upload-game/upload"
+            element={<UploadProcessPage />}
           />
           <Route path="/manage-games" element={<DevManageGamesPage />} />
           <Route path="*" element={<NotFoundPage />} />
