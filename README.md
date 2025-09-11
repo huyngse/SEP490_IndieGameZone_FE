@@ -5,6 +5,12 @@
 Welcome to **SEP490 Indie Game Zone**, a **university capstone project** for building an **interactive platform for indie games**! This web app allows users to explore, share, and interact with indie games, built with modern web technologies for a smooth and engaging experience.  
 
 ---
+## 👨‍💻 Frontend Developers
+
+[![Lê Văn Hoàng Vũ](https://img.shields.io/badge/Frontend-Lê%20Văn%20Hoàng%20Vũ-green?style=for-the-badge&logo=react)]() &nbsp;
+[![Ngô Gia Huy](https://img.shields.io/badge/Frontend-Ngô%20Gia%20Huy-green?style=for-the-badge&logo=react)]()
+
+---
 
 ## 🚀 Project Setup
 
@@ -130,4 +136,5 @@ This capstone project showcases an **interactive platform for indie games**, all
 * Interact in real-time with notifications and comments
 
 The project demonstrates **modern web development techniques**, combining React, TypeScript, TailwindCSS, and powerful libraries for state management, drag-and-drop, real-time updates, and rich media handling. 
+
 
